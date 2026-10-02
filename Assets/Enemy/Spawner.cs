@@ -15,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private GameObject EnemyObject;
 
-    private List<GameObject> Enemys;
+    public List<GameObject> Enemys = new List<GameObject>();
 
     void Start()
     {
@@ -43,7 +43,7 @@ public class EnemySpawner : MonoBehaviour
             EnemyNum++;
             EnemySpawnCount -= EnemySpawnTime;
 
-            Vector3 SpawPos = new Vector3(Random.Range(-transform.localScale.x, transform.localScale.x) / 2, transform.position.y + 1, Random.Range(-transform.localScale.z, transform.localScale.z) / 2) + transform.position;
+            Vector3 SpawPos = new Vector3(Random.Range(-transform.localScale.x, transform.localScale.x) / 2, 1, Random.Range(-transform.localScale.z, transform.localScale.z) / 2) + transform.position;
             GameObject cloneEnemy = Instantiate(EnemyObject, SpawPos, Quaternion.identity);
             cloneEnemy.transform.parent = transform;
             Enemys.Add(cloneEnemy);

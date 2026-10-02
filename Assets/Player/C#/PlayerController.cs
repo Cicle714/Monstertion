@@ -45,6 +45,7 @@ public class PlayerContoroller : MonoBehaviour
             PropellerUpPow -= Time.deltaTime * 20;
         }
 
+        SPRecovery();
     }
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -110,6 +111,30 @@ public class PlayerContoroller : MonoBehaviour
         if (!IsPush)
         {
             IsPush = true;
+        }
+    }
+
+    void SPRecovery()
+    {
+        if(!PlayerStatus.HornAttack && !PlayerStatus.BeamAttack && !Dash)
+        {
+            PlayerStatus.SPRecoveryDelayCount += Time.deltaTime;
+            if(PlayerStatus.SPRecoveryDelayCount >= PlayerStatus.SPRecoveryDelayTime)
+            {
+                PlayerStatus.SP += (PlayerStatus.MaxSP / 20) * Time.deltaTime;
+                if(moveInput.magnitude != 0)
+                {
+                    PlayerStatus.SP += (PlayerStatus.MaxSP / 20) * Time.deltaTime;
+                }
+            }
+        }
+        else if(PlayerStatus.SPRecoveryDelayCount != 0)
+        {
+            PlayerStatus.SPRecoveryDelayCount = 0;
+        }
+        if(PlayerStatus.SP > PlayerStatus.MaxSP)
+        {
+            PlayerStatus.SP = PlayerStatus.MaxSP;
         }
     }
 }

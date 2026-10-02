@@ -1,4 +1,5 @@
 
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy_01 :EnemyStatus
@@ -6,6 +7,8 @@ public class Enemy_01 :EnemyStatus
 
     PlayerContoroller player;
 
+    [SerializeField]
+    GameObject MyParent;
 
 
     void Start()
@@ -17,6 +20,18 @@ public class Enemy_01 :EnemyStatus
     void Update()
     {
         EnemyMove();
+
+        if(HP <= 0)
+        {
+            EnemySpawner parent = GetComponentInParent<EnemySpawner>();
+            if (parent != null)
+            {
+                parent.EnemyNum--;
+                parent.Enemys.Remove(gameObject);
+            }
+            Destroy(MyParent);
+        }
+
     }
 
     void EnemyMove()
@@ -57,6 +72,15 @@ public class Enemy_01 :EnemyStatus
         }
        
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.GetComponent<PlayerContoroller>())
+        {
+            PlayerStatus.HP -= (int)AttackPow;
+        }
+    }
+
 
 
 }
