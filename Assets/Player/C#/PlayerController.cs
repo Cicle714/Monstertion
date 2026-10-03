@@ -12,7 +12,7 @@ public class PlayerContoroller : MonoBehaviour
     private InputAction jumpAction;
     private InputAction attackAction;
 
-
+    private bool KeyMove;
 
     float speed = 5;
 
@@ -49,7 +49,7 @@ public class PlayerContoroller : MonoBehaviour
     }
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (context.ReadValue<Vector2>().magnitude <= 0.1f)
+        if (context.ReadValue<Vector2>().magnitude <= 0.1f && !KeyMove)
         {
             DashCount = 0;
             Dash = false;
@@ -57,7 +57,7 @@ public class PlayerContoroller : MonoBehaviour
             moveInput = Vector2.zero;
             return;
         }
-
+        KeyMove = false;
         if (SetDashTime > DashCount)
         {
             if (context.ReadValue<Vector2>().magnitude >= 1f)
@@ -71,10 +71,46 @@ public class PlayerContoroller : MonoBehaviour
         if (Dash)
             moveInput *= 2f;
 
-        Vector3 direction = new Vector3(moveInput.x,0f, moveInput.y);
-        if(!PlayerStatus.MoveRollStop)
-        transform.rotation = Quaternion.LookRotation(direction);
+        Vector3 direction = new Vector3(moveInput.x, 0f, moveInput.y);
+        if (!PlayerStatus.MoveRoll)
+            PlayerStatus.PlayerRote = Quaternion.LookRotation(direction).eulerAngles;
 
+
+    }
+    public void OnDashKey(InputAction.CallbackContext context)
+    {
+
+        if (context.started)
+        {
+            Dash = true;
+        }
+        if (context.canceled)
+        {
+            Dash = false;
+        }
+    }
+
+    public void OnKeyMove(InputAction.CallbackContext context)
+    {
+        KeyMove = true;
+        moveInput = context.ReadValue<Vector2>();
+
+        if (context.canceled)
+        {
+            if(context.ReadValue<Vector2>().magnitude <= 0.1f)
+            {
+                MoveStart = false;
+                moveInput = Vector2.zero;
+            }
+            return;
+        }
+
+            if (Dash)
+            moveInput *= 2f;
+
+        Vector3 direction = new Vector3(moveInput.x, 0f, moveInput.y);
+        if (!PlayerStatus.MoveRoll)
+            PlayerStatus.PlayerRote = Quaternion.LookRotation(direction).eulerAngles;
     }
     public void OnJump(InputAction.CallbackContext context)
     {
@@ -116,23 +152,23 @@ public class PlayerContoroller : MonoBehaviour
 
     void SPRecovery()
     {
-        if(!PlayerStatus.HornAttack && !PlayerStatus.BeamAttack && !Dash)
+        if (!PlayerStatus.HornAttack && !PlayerStatus.BeamAttack && !Dash)
         {
             PlayerStatus.SPRecoveryDelayCount += Time.deltaTime;
-            if(PlayerStatus.SPRecoveryDelayCount >= PlayerStatus.SPRecoveryDelayTime)
+            if (PlayerStatus.SPRecoveryDelayCount >= PlayerStatus.SPRecoveryDelayTime)
             {
                 PlayerStatus.SP += (PlayerStatus.MaxSP / 20) * Time.deltaTime;
-                if(moveInput.magnitude != 0)
+                if (moveInput.magnitude == 0)
                 {
-                    PlayerStatus.SP += (PlayerStatus.MaxSP / 20) * Time.deltaTime;
+                    PlayerStatus.SP += (PlayerStatus.MaxSP / 20) * Time.deltaTime * 2;
                 }
             }
         }
-        else if(PlayerStatus.SPRecoveryDelayCount != 0)
+        else if (PlayerStatus.SPRecoveryDelayCount != 0)
         {
             PlayerStatus.SPRecoveryDelayCount = 0;
         }
-        if(PlayerStatus.SP > PlayerStatus.MaxSP)
+        if (PlayerStatus.SP > PlayerStatus.MaxSP)
         {
             PlayerStatus.SP = PlayerStatus.MaxSP;
         }

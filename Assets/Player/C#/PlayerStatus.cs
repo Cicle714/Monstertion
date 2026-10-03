@@ -6,13 +6,21 @@ public class PlayerStatus : MonoBehaviour
 
     static PlayerStatus instance;
 
+    public static Vector3 PlayerRote;
+    public static float SkillRoteX;
+    public static float SkillRoteY;
+    public static float SkillRoteZ;
+
     public static bool HornAttack = false;
     public static bool BeamAttack = false;
     public static int BeamLevel = 0;
 
 
     public static bool IsGround;
-    public static bool MoveRollStop;
+    public static bool MoveRoll;
+    public static bool MoveRollXStop;
+    public static bool MoveRollZRStop;
+    public static bool MoveRollZLStop;
 
     public static int PlayerLevel = 1;
     public static int PlayerAttack = 10;
