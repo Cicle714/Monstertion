@@ -3,6 +3,9 @@ using UnityEngine;
 public class PlayerStatus : MonoBehaviour
 {
 
+    public static Rigidbody rb;
+
+
 
     static PlayerStatus instance;
 
@@ -42,10 +45,11 @@ public class PlayerStatus : MonoBehaviour
 
     public static float PropellerPow = 0.25f;
 
-    public static float SPRecoveryDelayTime = 1;
+    public static float SPRecoveryDelayTime = 0.5f;
     public static float SPRecoveryDelayCount = 0;
 
 
+    public static float RecoilCount;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

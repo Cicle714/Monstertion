@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -31,11 +33,23 @@ public class PlayerSkill : MonoBehaviour
 
     public static bool RollZReverse;
     public static float RollZReverseCount;
-    public static float RollZReverseTime = 1;
+    public static float RollZReverseTime = 2;
 
 
     public static bool HornGrow = false;
     public static float HornGrowNum;
+
+    public static bool BeamCharge;
+    public static float BeamChargeCount;
+    [SerializeField]
+    private int[] BeamLevelTimes;
+    public static float BeamChargeMaxTime;
+    [SerializeField]
+    private GameObject BeamChargeEffect;
+    [SerializeField]
+    private List<GameObject> BeamObject;
+
+    
 
     private Quaternion PlayerRot;
 
@@ -50,6 +64,8 @@ public class PlayerSkill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PlayerStatus.RecoilCount > 0)
+            return;
         transform.localRotation = Quaternion.Euler(PlayerStatus.PlayerRote) * Quaternion.Euler(0, 0, PlayerStatus.SkillRoteZ) * Quaternion.Euler(PlayerStatus.SkillRoteX, 0, 0);
         HornGrowing();
 
@@ -62,7 +78,6 @@ public class PlayerSkill : MonoBehaviour
     {
         if (context.started)
         {
-            PlayerStatus.HornAttack = true;
             HornGrow = true;
         }
         if (context.canceled)
@@ -73,13 +88,17 @@ public class PlayerSkill : MonoBehaviour
 
     void HornGrowing()
     {
+        if (!PlayerStatus.BeamAttack)
+        {
+            PlayerStatus.HornAttack = true;
+        }
         if (HornGrow)
         {
             HornGrowNum += Time.deltaTime * 2;
         }
         else
         {
-            HornGrowNum -= Time.deltaTime * 2;
+            HornGrowNum -= Time.deltaTime * 10;
         }
         if (HornGrowNum < 1)
         {
@@ -96,6 +115,27 @@ public class PlayerSkill : MonoBehaviour
 
     public void Beam(InputAction.CallbackContext context)
     {
+        if (context.started)
+        {
+            BeamCharge = true;
+            BeamChargeEffect.SetActive(true);
+        }
+        if (BeamCharge)
+        {
+            BeamChargeCount += Time.deltaTime;
+        }
+        if (context.canceled)
+        {
+            BeamChargeEffect.SetActive(false);
+            if (PlayerStatus.SP >= 50)
+            {
+                PlayerStatus.SP -= 50;
+                PlayerStatus.BeamLevel = 2;
+                PlayerStatus.RecoilCount = 1f;
+                PlayerStatus.BeamAttack = true;
+                Instantiate(BeamObject[0], MyHorn2.transform.position, transform.rotation * Quaternion.identity);
+            }
+        }
 
     }
 

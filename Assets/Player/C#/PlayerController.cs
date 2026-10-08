@@ -37,6 +37,12 @@ public class PlayerContoroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(PlayerStatus.RecoilCount > 0)
+        {
+            PlayerStatus.RecoilCount-= Time.deltaTime;
+            return;
+        }
+
         var move = transform.position + new Vector3(moveInput.x, PropellerUpPow, moveInput.y) * speed * Time.deltaTime;
         transform.position = move;
 
@@ -72,7 +78,7 @@ public class PlayerContoroller : MonoBehaviour
             moveInput *= 2f;
 
         Vector3 direction = new Vector3(moveInput.x, 0f, moveInput.y);
-        if (!PlayerStatus.MoveRoll)
+        if (!PlayerStatus.MoveRoll && PlayerStatus.IsGround)
             PlayerStatus.PlayerRote = Quaternion.LookRotation(direction).eulerAngles;
 
 
@@ -117,7 +123,7 @@ public class PlayerContoroller : MonoBehaviour
         if (context.started)
             PropellerChargeCount = Time.time;
 
-        if (context.canceled)
+        if (context.canceled && PlayerStatus.IsGround)
         {
             if (Time.time - PropellerChargeCount > PropellerChargeTime)
             {
@@ -157,10 +163,10 @@ public class PlayerContoroller : MonoBehaviour
             PlayerStatus.SPRecoveryDelayCount += Time.deltaTime;
             if (PlayerStatus.SPRecoveryDelayCount >= PlayerStatus.SPRecoveryDelayTime)
             {
-                PlayerStatus.SP += (PlayerStatus.MaxSP / 20) * Time.deltaTime;
+                PlayerStatus.SP += (PlayerStatus.MaxSP / 10) * Time.deltaTime;
                 if (moveInput.magnitude == 0)
                 {
-                    PlayerStatus.SP += (PlayerStatus.MaxSP / 20) * Time.deltaTime * 2;
+                    PlayerStatus.SP += (PlayerStatus.MaxSP / 10) * Time.deltaTime * 2;
                 }
             }
         }
