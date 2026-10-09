@@ -1,12 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyHPCanvas : MonoBehaviour
+public class EnemyStatusCanvas : MonoBehaviour
 {
     [SerializeField]
     EnemyStatus enemy;
     [SerializeField]
     Image greenBer;
+    [SerializeField]
+    Text LevelText;
+    [SerializeField]
+    Text HPText;
     void Start()
     {
         gameObject.SetActive(true);
@@ -15,7 +19,14 @@ public class EnemyHPCanvas : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = enemy.transform.position + Vector3.up;
+        if (enemy.Big)
+        {
+            transform.position = enemy.transform.position + Vector3.up * 2;
+        }
+        else
+            transform.position = enemy.transform.position + Vector3.up;
         greenBer.fillAmount = (float)enemy.HP / enemy.MaxHP;
+        LevelText.text = "Lv"+enemy.Level;
+        HPText.text = "HP:"+  enemy.HP +"/"+ enemy.MaxHP;
     }
 }

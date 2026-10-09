@@ -31,6 +31,7 @@ public class PlayerContoroller : MonoBehaviour
 
     void Start()
     {
+        PlayerStatus.RespawnPos = transform.position;
         Prb = GetComponent<Rigidbody>();
     }
 

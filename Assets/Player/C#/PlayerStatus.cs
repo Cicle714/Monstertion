@@ -53,6 +53,8 @@ public class PlayerStatus : MonoBehaviour
     public static float SPRecoveryDelayTime = 0.5f;
     public static float SPRecoveryDelayCount = 0;
 
+    public static Vector3 RespawnPos;
+
 
     public static float RecoilCount;
 
@@ -154,6 +156,8 @@ public class PlayerStatus : MonoBehaviour
         PlayerStatus.SP = PlayerStatus.MaxSP;
         PlayerStatus.BeamAttackPow += 2;
         PlayerStatus.HornAttackPow += 2;
+        PlayerStatus.Defense += 1;
+
 
     }
 

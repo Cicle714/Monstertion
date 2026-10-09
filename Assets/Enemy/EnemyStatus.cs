@@ -7,7 +7,7 @@ public class EnemyStatus : MonoBehaviour
     public Canvas HPCanvas;
     public Image HPbar;
 
-    public float AttackPow;
+    public int AttackPow;
     public float AttackSpeed;
     public float AttackSpeedCount;
     public float Defense;
@@ -27,5 +27,18 @@ public class EnemyStatus : MonoBehaviour
     public int MaxHP;
     public int HP;
     public int EXP;
+
+    public bool Big;
     
+    public void BigEnemy(GameObject Self)
+    {
+        Level *= 10;
+        MaxHP *= 10;
+        HP = MaxHP;
+        AttackPow *= 10;
+        EXP *= 10;
+        Big = true;
+        Self.transform.localScale = Vector3.one * 2;
+    }
+
 }

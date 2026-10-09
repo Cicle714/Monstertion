@@ -13,6 +13,11 @@ public class Enemy_01 :EnemyStatus
 
     void Start()
     {
+        if(Random.Range(0,10) <= 0)
+        {
+            BigEnemy(gameObject);
+            transform.position += Vector3.up;
+        }
         player = FindObjectOfType<PlayerContoroller>();
     }
 
@@ -78,7 +83,7 @@ public class Enemy_01 :EnemyStatus
     {
         if (collision.gameObject.GetComponent<PlayerContoroller>())
         {
-            PlayerStatus.HP -= (int)AttackPow;
+            PlayerStatus.HP -= AttackPow - PlayerStatus.Defense;
         }
     }
 
