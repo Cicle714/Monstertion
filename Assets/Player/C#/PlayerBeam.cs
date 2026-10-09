@@ -11,7 +11,7 @@ public class PlayerBeam : MonoBehaviour
 
 
 
-    private Transform[] Childs;
+    private ParticleSystem[] Childs;
 
     void Start()
     {
@@ -27,15 +27,28 @@ public class PlayerBeam : MonoBehaviour
 
     IEnumerator BeamEffect()
     {
-        Childs = GetComponentsInChildren<Transform>();
+        Childs = GetComponentsInChildren<ParticleSystem>();
+        
         yield return new WaitForSeconds(0.5f);
+
+        float[] SizeX = new float[Childs.Length];
+        for(int i = 0;i < Childs.Length; i++)
+        {
+            var tmpX = Childs[i].main.startSizeX;
+            SizeX[i] = (float)tmpX.constant;
+
+        }
+
         while (BeamDestroyCount < BeamDestroyTime)
         {
+            
             BeamDestroyCount += Time.deltaTime;
 
             for (int i = 0; i < Childs.Length; i++)
             {
-                Childs[i].transform.localScale = Vector3.Lerp(Vector3.one, Vector3.up, BeamDestroyCount / BeamDestroyTime);
+                var tmpX = Childs[i].main;
+                Childs[i].transform.localScale = Vector3.Lerp(Vector3.one, Vector3.right, BeamDestroyCount / BeamDestroyTime);
+                tmpX.startSizeX = SizeX[i] - ((BeamDestroyCount / BeamDestroyTime) * SizeX[i])  ; 
             }
             yield return null;
         }

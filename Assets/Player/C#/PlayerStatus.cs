@@ -26,6 +26,9 @@ public class PlayerStatus : MonoBehaviour
     public static bool MoveRollZLStop;
 
     public static int PlayerLevel = 1;
+    public static int CheckLevel = 1;
+    public static int GetEXP = 0;
+    public static int NeedEXP = 5;
     public static int PlayerAttack = 10;
     public static int MaxHP = 50;
     public static int HP = 50;
@@ -36,6 +39,8 @@ public class PlayerStatus : MonoBehaviour
     public static int Defense = 5;
     public static float MoveSpeed;
     public static float JumpPow = 1250;
+
+    public static bool UseSP = false;
 
     public static float fastHornMagPow = 2.0f;
     public static float fastRoteMagPow = 2.0f;
@@ -122,11 +127,34 @@ public class PlayerStatus : MonoBehaviour
                 beamPow = 10.0f;
                 break;
         }
-
-
-
-
         return beamPow;
+    }
+
+    public static int NeedEXPCulc()
+    {
+        return (int)(PlayerStatus.NeedEXP * (PlayerStatus.PlayerLevel));
+    }
+
+    public static void CheckEXP()
+    {
+        if(PlayerStatus.GetEXP >= PlayerStatus.NeedEXPCulc())
+        {
+            GetEXP -= PlayerStatus.NeedEXPCulc();
+            PlayerStatus.NeedEXP++;
+            PlayerStatus.LevelUP();
+        }
+    }
+
+    public static void LevelUP()
+    {
+        PlayerStatus.PlayerLevel++;
+        PlayerStatus.MaxHP += 10;
+        PlayerStatus.HP = PlayerStatus.MaxHP;
+        PlayerStatus.MaxSP += 5;
+        PlayerStatus.SP = PlayerStatus.MaxSP;
+        PlayerStatus.BeamAttackPow += 2;
+        PlayerStatus.HornAttackPow += 2;
+
     }
 
 

@@ -296,7 +296,7 @@ MonoBehaviour:
   Level: 2
   MaxHP: 30
   HP: 30
-  EXP: 2
+  EXP: 1
   MyParent: {fileID: 8153214255139313161}
 --- !u!1 &7762620444475820528
 GameObject:

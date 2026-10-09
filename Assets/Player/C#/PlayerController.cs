@@ -37,7 +37,8 @@ public class PlayerContoroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(PlayerStatus.RecoilCount > 0)
+        PlayerStatus.CheckEXP();
+        if (PlayerStatus.RecoilCount > 0)
         {
             PlayerStatus.RecoilCount-= Time.deltaTime;
             return;
@@ -123,22 +124,27 @@ public class PlayerContoroller : MonoBehaviour
         if (context.started)
             PropellerChargeCount = Time.time;
 
-        if (context.canceled && PlayerStatus.IsGround)
+        if (context.canceled)
         {
-            if (Time.time - PropellerChargeCount > PropellerChargeTime)
+            if (PlayerStatus.IsGround)
             {
-                StartCoroutine(PlayerSkill.HornPropeller());
+                if (Time.time - PropellerChargeCount > PropellerChargeTime)
+                {
+                    StartCoroutine(PlayerSkill.HornPropeller());
+                }
+                else
+                {
+                    if (Time.time - PropellerChargeCount > 0.1f)
+                        Prb.AddForce(Vector3.up * PlayerStatus.JumpPow);
+                    else
+                        Prb.AddForce(Vector3.up * PlayerStatus.JumpPow * 0.75f);
+                }
             }
             else
             {
                 PlayerSkill.PropellerCancel = true;
-                if (Time.time - PropellerChargeCount > 0.1f)
-                    Prb.AddForce(Vector3.up * PlayerStatus.JumpPow);
-                else
-                    Prb.AddForce(Vector3.up * PlayerStatus.JumpPow * 0.75f);
             }
-            PropellerChargeCount = 0;
-
+                PropellerChargeCount = 0;
         }
     }
     public void OnAttack(InputAction.CallbackContext context)
@@ -158,7 +164,7 @@ public class PlayerContoroller : MonoBehaviour
 
     void SPRecovery()
     {
-        if (!PlayerStatus.HornAttack && !PlayerStatus.BeamAttack && !Dash)
+        if (!PlayerStatus.HornAttack && !PlayerStatus.BeamAttack && !PlayerStatus.UseSP)
         {
             PlayerStatus.SPRecoveryDelayCount += Time.deltaTime;
             if (PlayerStatus.SPRecoveryDelayCount >= PlayerStatus.SPRecoveryDelayTime)
@@ -179,4 +185,8 @@ public class PlayerContoroller : MonoBehaviour
             PlayerStatus.SP = PlayerStatus.MaxSP;
         }
     }
+
+
+
+
 }

@@ -29,6 +29,7 @@ public class Enemy_01 :EnemyStatus
                 parent.EnemyNum--;
                 parent.Enemys.Remove(gameObject);
             }
+            PlayerStatus.GetEXP += EXP;
             Destroy(MyParent);
         }
 

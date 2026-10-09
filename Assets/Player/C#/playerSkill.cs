@@ -105,12 +105,13 @@ public class PlayerSkill : MonoBehaviour
             PlayerStatus.HornAttack = false;
             HornGrowNum = 1;
         }
-        else if (HornGrowNum > 5)
+        else if (HornGrowNum > 7.5f)
         {
-            HornGrowNum = 5;
+            HornGrowNum = 7.5f;
         }
-        MyHorn.transform.localScale = new Vector3(MyHorn.transform.localScale.x, 1 * HornGrowNum, MyHorn.transform.localScale.z);
-        MyHorn2.transform.localPosition = Vector3.up * (HornGrowNum - 1) / 17.5f;
+        if (PlayerContoroller.Prb.useGravity)
+            MyHorn.transform.localScale = new Vector3(MyHorn.transform.localScale.x, 1 * HornGrowNum, MyHorn.transform.localScale.z);
+        //MyHorn2.transform.localPosition = Vector3.up * (HornGrowNum - 1) / 10.0f;
     }
 
     public void Beam(InputAction.CallbackContext context)
@@ -148,7 +149,7 @@ public class PlayerSkill : MonoBehaviour
                 if (PlayerStatus.SP >= 2 && !FastRollX)
                 {
                     PlayerStatus.SP -= 2;
-                    FastRollX = true;
+                    PlayerStatus.faltRote = true;
                 }
             }
             else
@@ -173,7 +174,6 @@ public class PlayerSkill : MonoBehaviour
             RollZReverse = false;
                 PlayerStatus.MoveRoll = true;
                 PlayerRot = transform.rotation;
-                // RollXPush = true;
                 StartCoroutine(RollZR());
             
 
@@ -190,6 +190,10 @@ public class PlayerSkill : MonoBehaviour
 
         while (!PlayerStatus.HornAttack && !PlayerStatus.BeamAttack && PlayerStatus.SP > 0 && !PropellerCancel)
         {
+            if (!PlayerStatus.UseSP)
+            {
+                PlayerStatus.UseSP = true;
+            }
             roteCount += Time.deltaTime * 360 * 5;
             FindObjectOfType<PlayerSkill>().MyHorn.transform.localRotation = Quaternion.Euler(0, 0, 90 + roteCount);
             PlayerContoroller.PropellerUpPow += Time.deltaTime * PlayerStatus.PropellerPow;
@@ -200,6 +204,7 @@ public class PlayerSkill : MonoBehaviour
 
         FindObjectOfType<PlayerSkill>().MyHorn.transform.localScale = new Vector3(1, 1, 1);
         FindObjectOfType<PlayerSkill>().MyHorn.transform.localRotation = Quaternion.Euler(90, 0, 0);
+        PlayerStatus.UseSP = false;
         PropellerCancel = false;
         PlayerContoroller.Prb.useGravity = true;
     }
@@ -209,7 +214,7 @@ public class PlayerSkill : MonoBehaviour
         while (RollXCount < RollXTime)
         {
             float RollCountSpeed = 0;
-            if (FastRollX)
+            if (PlayerStatus.faltRote)
                 RollCountSpeed += Time.deltaTime * 4;
             else
                 RollCountSpeed += Time.deltaTime;
@@ -229,7 +234,7 @@ public class PlayerSkill : MonoBehaviour
 
         PlayerStatus.MoveRollXStop = false;
         RollXPush = false;
-        FastRollX = false;
+        PlayerStatus.faltRote = false;
         PlayerStatus.MoveRoll = false;
         RollXCount = 0;
 
