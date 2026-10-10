@@ -26,7 +26,11 @@ public class EnemyStatusCanvas : MonoBehaviour
         else
             transform.position = enemy.transform.position + Vector3.up;
         greenBer.fillAmount = (float)enemy.HP / enemy.MaxHP;
-        LevelText.text = "Lv"+enemy.Level;
+        if (enemy.Big)
+        {
+            LevelText.text = "<color=red>Lv" + enemy.Level +"</color>";
+        }else
+            LevelText.text = "Lv" + enemy.Level;
         HPText.text = "HP:"+  enemy.HP +"/"+ enemy.MaxHP;
     }
 }

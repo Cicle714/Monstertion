@@ -36,7 +36,7 @@ public class EnemyStatus : MonoBehaviour
         MaxHP *= 10;
         HP = MaxHP;
         AttackPow *= 10;
-        EXP *= 10;
+        EXP *= 20;
         Big = true;
         Self.transform.localScale = Vector3.one * 2;
     }
