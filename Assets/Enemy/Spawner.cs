@@ -45,6 +45,7 @@ public class EnemySpawner : MonoBehaviour
 
             Vector3 SpawPos = new Vector3(Random.Range((float)-transform.localScale.x, (float)transform.localScale.x) / 2, 1, Random.Range((float)-transform.localScale.z, (float)transform.localScale.z) / 2) + transform.position;
             GameObject cloneEnemy = Instantiate(EnemyObject, SpawPos, Quaternion.identity);
+            cloneEnemy.GetComponentInChildren<EnemyStatus>().SpawParent = gameObject;
             cloneEnemy.transform.parent = transform;
             Enemys.Add(cloneEnemy);
 

@@ -7,8 +7,8 @@ public class Enemy_01 :EnemyStatus
 
     PlayerContoroller player;
 
-    [SerializeField]
-    GameObject MyParent;
+
+
 
 
     void Start()
@@ -65,8 +65,16 @@ public class Enemy_01 :EnemyStatus
 
             if (RandomMoveStart)
             {
-                transform.position += transform.forward * Time.deltaTime;
-                MoveCount += Time.deltaTime;
+                if (Vector3.Distance(transform.position + transform.forward,SpawParent.transform.position) > SpawParent.transform.localScale.x / 2)
+                {
+                    MoveOut = true; 
+                    transform.LookAt(new Vector3(SpawParent.transform.position.x, transform.position.y, SpawParent.transform.position.z));
+                }
+                else
+                {
+                    transform.position += transform.forward * Time.deltaTime;
+                    MoveCount += Time.deltaTime;
+                }
                 if(MoveCount >= MoveTime)
                 {
                     MoveCount = 0;

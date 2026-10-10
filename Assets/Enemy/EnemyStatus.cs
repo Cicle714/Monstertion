@@ -6,6 +6,8 @@ public class EnemyStatus : MonoBehaviour
 {
     public Canvas HPCanvas;
     public Image HPbar;
+    public GameObject MyParent;
+    public GameObject SpawParent;
 
     public int AttackPow;
     public float AttackSpeed;
@@ -22,6 +24,8 @@ public class EnemyStatus : MonoBehaviour
     public bool RandomMoveStart;
     public float MoveTime;
     public float MoveCount;
+
+    public bool MoveOut;
 
     public int Level;
     public int MaxHP;
