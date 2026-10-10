@@ -64,12 +64,14 @@ public class PlayerSkill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PlayerStatus.SkillFullnessDecrease();
         if (PlayerStatus.RecoilCount > 0)
             return;
         transform.localRotation = Quaternion.Euler(PlayerStatus.PlayerRote) * Quaternion.Euler(0, 0, PlayerStatus.SkillRoteZ) * Quaternion.Euler(PlayerStatus.SkillRoteX, 0, 0);
         HornGrowing();
 
         RollNormal();
+
     }
 
 

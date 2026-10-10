@@ -39,8 +39,13 @@ public class PlayerStatus : MonoBehaviour
     public static int Defense = 5;
     public static float MoveSpeed;
     public static float JumpPow = 1250;
+    public static float FullnessMax = 100;
+    public static float Fullness = 100;
+
+    public static float FullnessDecreaseNum = 30; //x•b‚ÅFullness‚ð1Œ¸­‚·‚é
 
     public static bool UseSP = false;
+    public static float BeforeUsingSP;
 
     public static float fastHornMagPow = 2.0f;
     public static float fastRoteMagPow = 2.0f;
@@ -157,8 +162,23 @@ public class PlayerStatus : MonoBehaviour
         PlayerStatus.BeamAttackPow += 2;
         PlayerStatus.HornAttackPow += 2;
         PlayerStatus.Defense += 1;
+    }
 
-
+    public static void TimeFullnessDecrease()
+    {
+        Fullness -= Time.deltaTime / FullnessDecreaseNum;
+    }
+    public static void SkillFullnessDecrease()
+    {
+        if(PlayerStatus.BeforeUsingSP > PlayerStatus.SP)
+        {
+            Fullness -= (BeforeUsingSP - PlayerStatus.SP) / 20;
+            BeforeUsingSP = PlayerStatus.SP;
+        }
+        else
+        {
+            BeforeUsingSP = PlayerStatus.SP;
+        }
     }
 
 

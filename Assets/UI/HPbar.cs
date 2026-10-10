@@ -1,17 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIbar : MonoBehaviour
 {
     [SerializeField]
-    Image HPBer;
-    
-    [SerializeField]
-    Image SPBer;
-    
-    [SerializeField]
-    Image EXPBer;
-
+    List<Image> Bers;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,8 +15,9 @@ public class UIbar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HPBer.fillAmount = (float)PlayerStatus.HP / PlayerStatus.MaxHP;
-        SPBer.fillAmount = (float)PlayerStatus.SP / PlayerStatus.MaxSP;
-        EXPBer.fillAmount = (float)PlayerStatus.GetEXP / PlayerStatus.NeedEXPCulc();
+        Bers[0].fillAmount = (float)PlayerStatus.HP / PlayerStatus.MaxHP;
+        Bers[1].fillAmount = (float)PlayerStatus.SP / PlayerStatus.MaxSP;
+        Bers[2].fillAmount = (float)PlayerStatus.GetEXP / PlayerStatus.NeedEXPCulc();
+        Bers[3].fillAmount = (float)PlayerStatus.Fullness / PlayerStatus.FullnessMax;
     }
 }

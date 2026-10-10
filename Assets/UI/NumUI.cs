@@ -18,5 +18,6 @@ public class NumUI : MonoBehaviour
         Nums[1].text = "HP:" + PlayerStatus.HP + "/" + PlayerStatus.MaxHP;
         Nums[2].text = "SP:" + (int)PlayerStatus.SP + "/" + PlayerStatus.MaxSP;
         Nums[3].text = "EXP:" + PlayerStatus.GetEXP + "/" + PlayerStatus.NeedEXPCulc();
+        Nums[4].text = "–ž• “x:" + (int)PlayerStatus.Fullness + "/" + PlayerStatus.FullnessMax;
     }
 }

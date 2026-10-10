@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
             GameOver = true;
             StartCoroutine(OnGameOver());
         }
+
+        PlayerStatus.TimeFullnessDecrease();
     }
 
     IEnumerator OnGameOver()
@@ -30,6 +32,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerStatus.HP = PlayerStatus.MaxHP;
         PlayerStatus.SP = PlayerStatus.MaxSP;
+        PlayerStatus.Fullness = PlayerStatus.FullnessMax;
         player.transform.position = PlayerStatus.RespawnPos;
         GameOver = false;
     }
