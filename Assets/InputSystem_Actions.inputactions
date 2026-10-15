@@ -1111,6 +1111,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "DebugKey",
+            "id": "5bf0e5f5-f6ff-4956-a8f2-496bb1f6c2b9",
+            "actions": [
+                {
+                    "name": "LevelUp",
+                    "type": "Button",
+                    "id": "41a57ec9-a7f0-47ed-be43-c5e04fbadf12",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4682253e-c698-40ef-8f0a-281e543226d8",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LevelUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

@@ -147,13 +147,13 @@ public class PlayerStatus : MonoBehaviour
         if(PlayerStatus.GetEXP >= PlayerStatus.NeedEXPCulc())
         {
             GetEXP -= PlayerStatus.NeedEXPCulc();
-            PlayerStatus.NeedEXP++;
             PlayerStatus.LevelUP();
         }
     }
 
     public static void LevelUP()
     {
+        PlayerStatus.NeedEXP++;
         PlayerStatus.PlayerLevel++;
         PlayerStatus.MaxHP += 10;
         PlayerStatus.HP = PlayerStatus.MaxHP;

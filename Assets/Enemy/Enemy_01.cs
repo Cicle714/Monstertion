@@ -91,7 +91,14 @@ public class Enemy_01 :EnemyStatus
     {
         if (collision.gameObject.GetComponent<PlayerContoroller>())
         {
-            PlayerStatus.HP -= AttackPow - PlayerStatus.Defense;
+            if (AttackPow - PlayerStatus.Defense >= 1)
+            {
+                PlayerStatus.HP -= AttackPow - PlayerStatus.Defense;
+            }
+            else
+            {
+                PlayerStatus.HP -= 1;
+            }
         }
     }
 

@@ -5615,6 +5615,7 @@ GameObject:
   - component: {fileID: 112145885}
   - component: {fileID: 112145889}
   - component: {fileID: 112145888}
+  - component: {fileID: 112145890}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -5888,6 +5889,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: cf3ff460-9c19-4a54-8898-25bbd05a241b
     m_ActionName: 'Player/Beam[/Keyboard/j]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 112145890}
+        m_TargetAssemblyTypeName: DebugScript, Assembly-CSharp
+        m_MethodName: OnLevelUP
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 41a57ec9-a7f0-47ed-be43-c5e04fbadf12
+    m_ActionName: 'DebugKey/LevelUp[/Keyboard/b]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -5936,6 +5953,22 @@ MonoBehaviour:
   BeamChargeEffect: {fileID: 7636061}
   BeamObject:
   - {fileID: 5848694933661941379, guid: ac919c3961d44c64ea85990dfb30724d, type: 3}
+  - {fileID: 5848694933661941379, guid: b8a32c6ba783f5345932ebf5cbc74a00, type: 3}
+  - {fileID: 5848694933661941379, guid: fd16368930427644699007a9e7c57212, type: 3}
+  - {fileID: 5848694933661941379, guid: 19631318032e98546aee8ef968a02e73, type: 3}
+  - {fileID: 5848694933661941379, guid: 9bf87647f0e0264489bf0326f57093d3, type: 3}
+--- !u!114 &112145890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112145883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef8a869aa8a5bfe4280a0f1fb2d3f72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DebugScript
 --- !u!1 &163366160
 GameObject:
   m_ObjectHideFlags: 0
@@ -7210,7 +7243,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}

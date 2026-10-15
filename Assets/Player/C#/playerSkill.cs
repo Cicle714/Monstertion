@@ -72,6 +72,10 @@ public class PlayerSkill : MonoBehaviour
 
         RollNormal();
 
+        if (BeamCharge)
+        {
+            BeamChargeCount += Time.deltaTime;
+        }
     }
 
 
@@ -123,21 +127,53 @@ public class PlayerSkill : MonoBehaviour
             BeamCharge = true;
             BeamChargeEffect.SetActive(true);
         }
-        if (BeamCharge)
-        {
-            BeamChargeCount += Time.deltaTime;
-        }
         if (context.canceled)
         {
             BeamChargeEffect.SetActive(false);
-            if (PlayerStatus.SP >= 50)
+            if (BeamChargeCount >= 2 && PlayerStatus.SP >= 100)
             {
-                PlayerStatus.SP -= 50;
-                PlayerStatus.BeamLevel = 2;
-                PlayerStatus.RecoilCount = 1f;
+                PlayerStatus.SP -= 100;
+                PlayerStatus.BeamLevel = 4;
+                PlayerStatus.RecoilCount = 2f;
+                PlayerStatus.BeamAttack = true;
+                Instantiate(BeamObject[4], MyHorn2.transform.position, transform.rotation * Quaternion.identity);
+            }
+            else if (BeamChargeCount >= 1.5f && PlayerStatus.SP >= 75)
+            {
+
+                PlayerStatus.SP -= 75;
+                PlayerStatus.BeamLevel = 3;
+                PlayerStatus.RecoilCount = 1.5f;
+                PlayerStatus.BeamAttack = true;
+                Instantiate(BeamObject[3], MyHorn2.transform.position, transform.rotation * Quaternion.identity);
+            }
+            else if (BeamChargeCount >= 1f && PlayerStatus.SP >= 50)
+            {
+                    PlayerStatus.SP -= 50;
+                    PlayerStatus.BeamLevel = 2;
+                    PlayerStatus.RecoilCount = 1f;
+                    PlayerStatus.BeamAttack = true;
+                    Instantiate(BeamObject[2], MyHorn2.transform.position, transform.rotation * Quaternion.identity);
+                
+            }else if(BeamChargeCount >= 0.5f && PlayerStatus.SP >= 25)
+            {
+
+                PlayerStatus.SP -= 25;
+                PlayerStatus.BeamLevel = 1;
+                PlayerStatus.RecoilCount = 0.5f;
+                PlayerStatus.BeamAttack = true;
+                Instantiate(BeamObject[1], MyHorn2.transform.position, transform.rotation * Quaternion.identity);
+            }
+            else if(BeamChargeCount >= 0 && PlayerStatus.SP >= 10)
+            {
+                PlayerStatus.SP -= 10;
+                PlayerStatus.BeamLevel = 0;
+                PlayerStatus.RecoilCount = 0.5f;
                 PlayerStatus.BeamAttack = true;
                 Instantiate(BeamObject[0], MyHorn2.transform.position, transform.rotation * Quaternion.identity);
             }
+            BeamCharge = false;
+            BeamChargeCount = 0;
         }
 
     }
