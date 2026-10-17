@@ -281,10 +281,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_01
   HPCanvas: {fileID: 4377450701307550512}
   HPbar: {fileID: 8167526686230899773}
+  MyParent: {fileID: 8153214255139313161}
+  SpawParent: {fileID: 0}
   AttackPow: 10
-  AttackSpeed: 5
+  AttackSpeed: 2
   AttackSpeedCount: 0
-  Defense: 5
+  DefenseH: 1
+  DefenseB: 1
   MoveSpeed: 2
   SensingDistance: 10
   MoveStartTime: 2.5
@@ -294,12 +297,14 @@ MonoBehaviour:
   RandomMoveStart: 0
   MoveTime: 2
   MoveCount: 0
+  MoveOut: 0
   Level: 1
   MaxHP: 30
   HP: 30
   EXP: 1
   Big: 0
-  MyParent: {fileID: 8153214255139313161}
+  DropObject: {fileID: 0}
+  DropProbability: 0
 --- !u!54 &3742054751697708003
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -449,7 +454,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8629121994771544292}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Enemy_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

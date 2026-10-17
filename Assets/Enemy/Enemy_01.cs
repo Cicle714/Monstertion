@@ -13,11 +13,8 @@ public class Enemy_01 :EnemyStatus
 
     void Start()
     {
-        if(Random.Range(0,10) <= 0)
-        {
-            BigEnemy(gameObject);
-            transform.position += Vector3.up;
-        }
+
+        BigEnemy();
         player = FindObjectOfType<PlayerController>();
     }
 
@@ -25,18 +22,8 @@ public class Enemy_01 :EnemyStatus
     void Update()
     {
         EnemyMove();
-
-        if(HP <= 0)
-        {
-            EnemySpawner parent = GetComponentInParent<EnemySpawner>();
-            if (parent != null)
-            {
-                parent.EnemyNum--;
-                parent.Enemys.Remove(gameObject);
-            }
-            PlayerStatus.GetEXP += EXP;
-            Destroy(MyParent);
-        }
+        DespawEnemy();
+        EnemyDeath();
 
     }
 
@@ -72,9 +59,12 @@ public class Enemy_01 :EnemyStatus
                 }
                 else
                 {
-                    transform.position += transform.forward * Time.deltaTime;
+                    MoveOut = false;
                     MoveCount += Time.deltaTime;
                 }
+                    transform.position += transform.forward * Time.deltaTime;
+                    
+                
                 if(MoveCount >= MoveTime)
                 {
                     MoveCount = 0;

@@ -64,7 +64,7 @@ public class PlayerSkill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerStatus.SkillFullnessDecrease();
+        PlayerSystem.SkillFullnessDecrease();
         if (PlayerStatus.RecoilCount > 0)
             return;
         transform.localRotation = Quaternion.Euler(PlayerStatus.PlayerRote) * Quaternion.Euler(0, 0, PlayerStatus.SkillRoteZ) * Quaternion.Euler(PlayerStatus.SkillRoteX, 0, 0);
@@ -124,6 +124,7 @@ public class PlayerSkill : MonoBehaviour
     {
         if (context.started)
         {
+            PlayerStatus.UseSP = true;
             BeamCharge = true;
             BeamChargeEffect.SetActive(true);
         }
@@ -172,6 +173,7 @@ public class PlayerSkill : MonoBehaviour
                 PlayerStatus.BeamAttack = true;
                 Instantiate(BeamObject[0], MyHorn2.transform.position, transform.rotation * Quaternion.identity);
             }
+            PlayerStatus.UseSP = false;
             BeamCharge = false;
             BeamChargeCount = 0;
         }

@@ -23,7 +23,7 @@ public class Horn : MonoBehaviour
             {
                 Debug.Log("atatteru");
                 PlayerStatus.BeamAttack = false;
-                other.GetComponent<EnemyStatus>().HP -= PlayerStatus.FinalAttackPow();
+                other.GetComponent<EnemyStatus>().HP -= PlayerSystem.FinalAttackPow() - other.GetComponent<EnemyStatus>().DefenseH;
             }
         }
     }

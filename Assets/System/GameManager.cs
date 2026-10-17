@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
             StartCoroutine(OnGameOver());
         }
 
-        PlayerStatus.TimeFullnessDecrease();
+        PlayerSystem.TimeFullnessDecrease();
     }
 
     IEnumerator OnGameOver()

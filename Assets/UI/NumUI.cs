@@ -15,9 +15,9 @@ public class NumUI : MonoBehaviour
     void Update()
     {
         Nums[0].text = "LV:" + PlayerStatus.PlayerLevel;
-        Nums[1].text = "HP:" + PlayerStatus.HP + "/" + PlayerStatus.MaxHP;
+        Nums[1].text = "HP:" + (int)PlayerStatus.HP + "/" + PlayerStatus.MaxHP;
         Nums[2].text = "SP:" + (int)PlayerStatus.SP + "/" + PlayerStatus.MaxSP;
-        Nums[3].text = "EXP:" + PlayerStatus.GetEXP + "/" + PlayerStatus.NeedEXPCulc();
+        Nums[3].text = "EXP:" + PlayerStatus.GetEXP + "/" + PlayerSystem.NeedEXPCulc();
         Nums[4].text = "–ž• “x:" + (int)PlayerStatus.Fullness + "/" + PlayerStatus.FullnessMax;
     }
 }

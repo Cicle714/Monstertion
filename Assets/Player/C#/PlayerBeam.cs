@@ -66,7 +66,7 @@ public class PlayerBeam : MonoBehaviour
             Debug.Log("Beammm");
             PlayerStatus.BeamAttack = true;
             PlayerStatus.HornAttack = false;
-            other.GetComponent<EnemyStatus>().HP -= PlayerStatus.FinalAttackPow();
+            other.GetComponent<EnemyStatus>().HP -= PlayerSystem.FinalAttackPow() - other.GetComponent<EnemyStatus>().DefenseB;
             
         }
     }

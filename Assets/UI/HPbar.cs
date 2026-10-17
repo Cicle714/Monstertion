@@ -17,7 +17,7 @@ public class UIbar : MonoBehaviour
     {
         Bers[0].fillAmount = (float)PlayerStatus.HP / PlayerStatus.MaxHP;
         Bers[1].fillAmount = (float)PlayerStatus.SP / PlayerStatus.MaxSP;
-        Bers[2].fillAmount = (float)PlayerStatus.GetEXP / PlayerStatus.NeedEXPCulc();
+        Bers[2].fillAmount = (float)PlayerStatus.GetEXP / PlayerSystem.NeedEXPCulc();
         Bers[3].fillAmount = (float)PlayerStatus.Fullness / PlayerStatus.FullnessMax;
     }
 }

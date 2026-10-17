@@ -20,7 +20,7 @@ public class DebugScript : MonoBehaviour
 
         if (context.started)
         {
-            PlayerStatus.LevelUP();
+            PlayerSystem.LevelUP();
         }
     }
 

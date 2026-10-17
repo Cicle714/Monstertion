@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerStatus.CheckEXP();
+        PlayerSystem.CheckEXP();
         if (PlayerStatus.RecoilCount > 0)
         {
             PlayerStatus.RecoilCount-= Time.deltaTime;
