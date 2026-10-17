@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-
+    PlayerController player;
     public int EnemyNum;
     [SerializeField]
     private int EnemyMaxNum = 10;
@@ -13,13 +13,15 @@ public class EnemySpawner : MonoBehaviour
     private float EnemySpawnCount;
 
     [SerializeField]
-    private GameObject EnemyObject;
+    private List<GameObject> EnemyObjects;
+    [SerializeField]
+    private List<float> SpawProbability;
 
     public List<GameObject> Enemys = new List<GameObject>();
 
     void Start()
     {
-        
+        player = FindObjectOfType<PlayerController>();
     }
 
     // Update is called once per frame
@@ -40,11 +42,24 @@ public class EnemySpawner : MonoBehaviour
         if (EnemySpawnCount > EnemySpawnTime)
         {
 
+            Vector3 SpawPos = new Vector3(Random.Range((float)-transform.localScale.x, (float)transform.localScale.x) / 2, 1, Random.Range((float)-transform.localScale.z, (float)transform.localScale.z) / 2) + transform.position;
+            if(Vector3.Distance(player.transform.position,SpawPos)<= 5)
+            {
+                return;
+            }
             EnemyNum++;
             EnemySpawnCount -= EnemySpawnTime;
-
-            Vector3 SpawPos = new Vector3(Random.Range((float)-transform.localScale.x, (float)transform.localScale.x) / 2, 1, Random.Range((float)-transform.localScale.z, (float)transform.localScale.z) / 2) + transform.position;
-            GameObject cloneEnemy = Instantiate(EnemyObject, SpawPos, Quaternion.identity);
+            int RandomNum = Random.Range(0, 100);
+            int EnemySpawNum = 0;
+            for(int i = 0; i < SpawProbability.Count; i++)
+            {
+                if(RandomNum < SpawProbability[i])
+                {
+                    EnemySpawNum = i;
+                    break;
+                }
+            }
+            GameObject cloneEnemy = Instantiate(EnemyObjects[EnemySpawNum], SpawPos, Quaternion.identity);
             cloneEnemy.GetComponentInChildren<EnemyStatus>().SpawParent = gameObject;
             cloneEnemy.transform.parent = transform;
             Enemys.Add(cloneEnemy);

@@ -42,6 +42,8 @@ public class PlayerStatus : MonoBehaviour
     public static float FullnessMax = 100;
     public static float Fullness = 100;
 
+    public static float DashSpeed = 1.5f;
+
     public static float FullnessDecreaseNum = 30; //x•b‚ÅFullness‚ğ1Œ¸­‚·‚é
 
     public static bool UseSP = false;

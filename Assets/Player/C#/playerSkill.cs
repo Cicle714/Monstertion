@@ -115,7 +115,7 @@ public class PlayerSkill : MonoBehaviour
         {
             HornGrowNum = 7.5f;
         }
-        if (PlayerContoroller.Prb.useGravity)
+        if (PlayerController.Prb.useGravity)
             MyHorn.transform.localScale = new Vector3(MyHorn.transform.localScale.x, 1 * HornGrowNum, MyHorn.transform.localScale.z);
         //MyHorn2.transform.localPosition = Vector3.up * (HornGrowNum - 1) / 10.0f;
     }
@@ -220,7 +220,7 @@ public class PlayerSkill : MonoBehaviour
     public static IEnumerator HornPropeller()
     {
 
-        PlayerContoroller.Prb.useGravity = false;
+        PlayerController.Prb.useGravity = false;
         FindObjectOfType<PlayerSkill>().MyHorn.transform.localScale = new Vector3(1, 5, 1);
         FindObjectOfType<PlayerSkill>().MyHorn.transform.localRotation = Quaternion.Euler(90, 0, 90);
 
@@ -234,7 +234,7 @@ public class PlayerSkill : MonoBehaviour
             }
             roteCount += Time.deltaTime * 360 * 5;
             FindObjectOfType<PlayerSkill>().MyHorn.transform.localRotation = Quaternion.Euler(0, 0, 90 + roteCount);
-            PlayerContoroller.PropellerUpPow += Time.deltaTime * PlayerStatus.PropellerPow;
+            PlayerController.PropellerUpPow += Time.deltaTime * PlayerStatus.PropellerPow;
             PlayerStatus.SP -= Time.deltaTime * 10;
             Debug.Log(PlayerStatus.SP);
             yield return null;
@@ -244,7 +244,7 @@ public class PlayerSkill : MonoBehaviour
         FindObjectOfType<PlayerSkill>().MyHorn.transform.localRotation = Quaternion.Euler(90, 0, 0);
         PlayerStatus.UseSP = false;
         PropellerCancel = false;
-        PlayerContoroller.Prb.useGravity = true;
+        PlayerController.Prb.useGravity = true;
     }
     IEnumerator RollX()
     {

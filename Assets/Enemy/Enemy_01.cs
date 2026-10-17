@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy_01 :EnemyStatus
 {
 
-    PlayerContoroller player;
+    PlayerController player;
 
 
 
@@ -18,7 +18,7 @@ public class Enemy_01 :EnemyStatus
             BigEnemy(gameObject);
             transform.position += Vector3.up;
         }
-        player = FindObjectOfType<PlayerContoroller>();
+        player = FindObjectOfType<PlayerController>();
     }
 
     // Update is called once per frame
@@ -89,7 +89,7 @@ public class Enemy_01 :EnemyStatus
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.GetComponent<PlayerContoroller>())
+        if (collision.gameObject.GetComponent<PlayerController>())
         {
             if (AttackPow - PlayerStatus.Defense >= 1)
             {

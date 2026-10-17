@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerContoroller : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public static Rigidbody Prb;
 
@@ -14,7 +14,7 @@ public class PlayerContoroller : MonoBehaviour
 
     private bool KeyMove;
 
-    float speed = 5;
+    float speed = 7;
 
     private bool IsPush;
 
@@ -45,8 +45,14 @@ public class PlayerContoroller : MonoBehaviour
             return;
         }
 
-        var move = transform.position + new Vector3(moveInput.x, PropellerUpPow, moveInput.y) * speed * Time.deltaTime;
-        transform.position = move;
+        Vector3 move = new Vector3(moveInput.x, PropellerUpPow, moveInput.y) * speed * Time.deltaTime;
+        if (Dash)
+        {
+            move *= PlayerStatus.DashSpeed;
+        }
+        var move2 = transform.position + move;
+       
+        transform.position = move2;
 
         if (Prb.useGravity && PropellerUpPow > 0)
         {
@@ -76,8 +82,6 @@ public class PlayerContoroller : MonoBehaviour
         }
 
         moveInput = context.ReadValue<Vector2>();
-        if (Dash)
-            moveInput *= 2f;
 
         Vector3 direction = new Vector3(moveInput.x, 0f, moveInput.y);
         if (!PlayerStatus.MoveRoll && PlayerStatus.IsGround)

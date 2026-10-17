@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    PlayerContoroller player;
+    PlayerController player;
     bool GameOver = false;
     void Start()
     {
-        player = FindObjectOfType<PlayerContoroller>();
+        player = FindObjectOfType<PlayerController>();
     }
 
     // Update is called once per frame
