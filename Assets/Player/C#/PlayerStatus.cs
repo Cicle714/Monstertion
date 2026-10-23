@@ -65,6 +65,8 @@ public class PlayerStatus : MonoBehaviour
 
     public static float RecoilCount;
 
+    public static float HitInvincibleCount;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -87,6 +89,7 @@ public class PlayerStatus : MonoBehaviour
 
     }
 
+    
     
 
 }

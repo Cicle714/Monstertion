@@ -13,10 +13,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(PlayerStatus.HP <= 0 && !GameOver)
+        if (PlayerStatus.HP <= 0 || player.transform.position.y < -30f)
         {
-            GameOver = true;
-            StartCoroutine(OnGameOver());
+            if (!GameOver)
+            {
+                GameOver = true;
+                StartCoroutine(OnGameOver());
+            }
         }
 
         PlayerSystem.TimeFullnessDecrease();

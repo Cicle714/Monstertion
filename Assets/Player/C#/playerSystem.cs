@@ -108,4 +108,13 @@ public class PlayerSystem : MonoBehaviour
             PlayerStatus.HP = PlayerStatus.MaxHP;
         }
     }
+
+    public static void HitInvincible()
+    {
+        if(PlayerStatus.HitInvincibleCount > 0)
+        {
+            PlayerStatus.HitInvincibleCount -= Time.deltaTime;
+        }
+    }
+
 }

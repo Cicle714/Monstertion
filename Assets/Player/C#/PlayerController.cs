@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         PlayerSystem.CheckEXP();
+        PlayerSystem.HitInvincible();
         if (PlayerStatus.RecoilCount > 0)
         {
             PlayerStatus.RecoilCount-= Time.deltaTime;
@@ -191,7 +192,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
+    
 
 
 }
