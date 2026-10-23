@@ -117,4 +117,11 @@ public class PlayerSystem : MonoBehaviour
         }
     }
 
+    public static void LowestFallSpeed()
+    {
+        if(PlayerStatus.rb.linearVelocity.y < -50)
+        {
+            PlayerStatus.rb.linearVelocity = new Vector3(PlayerStatus.rb.linearVelocity.x, -50);
+        }
+    }
 }

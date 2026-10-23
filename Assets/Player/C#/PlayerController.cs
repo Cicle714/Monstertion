@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public static Rigidbody Prb;
 
     private Vector2 moveInput = Vector2.zero; //Å@à⁄ìÆ
     public static float PropellerUpPow;
@@ -32,7 +31,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         PlayerStatus.RespawnPos = transform.position;
-        Prb = GetComponent<Rigidbody>();
+        PlayerStatus.rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -40,6 +39,7 @@ public class PlayerController : MonoBehaviour
     {
         PlayerSystem.CheckEXP();
         PlayerSystem.HitInvincible();
+        PlayerSystem.LowestFallSpeed();
         if (PlayerStatus.RecoilCount > 0)
         {
             PlayerStatus.RecoilCount-= Time.deltaTime;
@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
        
         transform.position = move2;
 
-        if (Prb.useGravity && PropellerUpPow > 0)
+        if (PlayerStatus.rb.useGravity && PropellerUpPow > 0)
         {
             PropellerUpPow -= Time.deltaTime * 20;
         }
@@ -141,9 +141,9 @@ public class PlayerController : MonoBehaviour
                 else
                 {
                     if (Time.time - PropellerChargeCount > 0.1f)
-                        Prb.AddForce(Vector3.up * PlayerStatus.JumpPow);
+                        PlayerStatus.rb.AddForce(Vector3.up * PlayerStatus.JumpPow);
                     else
-                        Prb.AddForce(Vector3.up * PlayerStatus.JumpPow * 0.75f);
+                        PlayerStatus.rb.AddForce(Vector3.up * PlayerStatus.JumpPow * 0.75f);
                 }
             }
             else

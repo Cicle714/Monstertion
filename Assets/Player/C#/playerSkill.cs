@@ -115,7 +115,7 @@ public class PlayerSkill : MonoBehaviour
         {
             HornGrowNum = 7.5f;
         }
-        if (PlayerController.Prb.useGravity)
+        if (PlayerStatus.rb.useGravity)
             MyHorn.transform.localScale = new Vector3(MyHorn.transform.localScale.x, 1 * HornGrowNum, MyHorn.transform.localScale.z);
         //MyHorn2.transform.localPosition = Vector3.up * (HornGrowNum - 1) / 10.0f;
     }
@@ -222,7 +222,7 @@ public class PlayerSkill : MonoBehaviour
     public static IEnumerator HornPropeller()
     {
 
-        PlayerController.Prb.useGravity = false;
+        PlayerStatus.rb.useGravity = false;
         FindObjectOfType<PlayerSkill>().MyHorn.transform.localScale = new Vector3(1, 5, 1);
         FindObjectOfType<PlayerSkill>().MyHorn.transform.localRotation = Quaternion.Euler(90, 0, 90);
 
@@ -246,7 +246,7 @@ public class PlayerSkill : MonoBehaviour
         FindObjectOfType<PlayerSkill>().MyHorn.transform.localRotation = Quaternion.Euler(90, 0, 0);
         PlayerStatus.UseSP = false;
         PropellerCancel = false;
-        PlayerController.Prb.useGravity = true;
+        PlayerStatus.rb.useGravity = true;
     }
     IEnumerator RollX()
     {
