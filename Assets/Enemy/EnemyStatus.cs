@@ -1,13 +1,15 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements.Experimental;
 
 public class EnemyStatus : MonoBehaviour
 {
+    public Rigidbody rb;
     public Canvas HPCanvas;
     public Image HPbar;
     public GameObject MyParent;
     public GameObject SpawParent;
+    public Material mat;
 
     public int AttackPow;
     public float AttackSpeed;
@@ -15,6 +17,8 @@ public class EnemyStatus : MonoBehaviour
     public int DefenseH;
     public int DefenseB;
     public float MoveSpeed;
+
+    public float KnockBackResistance;
 
     public float SensingDistance;
 
@@ -40,7 +44,8 @@ public class EnemyStatus : MonoBehaviour
     public GameObject DropObject;
     public float DropProbability;
 
-    public float DespawTime = 5;
+    public bool Despaw;
+    public float DespawTime = 1;
     public float DespawCount;
 
     public void BigEnemy()
@@ -69,7 +74,7 @@ public class EnemyStatus : MonoBehaviour
                 MoveStartCount = 0;
             }
             transform.LookAt(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
-            transform.position += (transform.forward * MoveSpeed) * Time.deltaTime;
+            transform.position += ((transform.forward * MoveSpeed) + rb.linearVelocity) * Time.deltaTime;
         }
         else
         {
@@ -94,7 +99,7 @@ public class EnemyStatus : MonoBehaviour
                     MoveOut = false;
                     MoveCount += Time.deltaTime;
                 }
-                transform.position += transform.forward * Time.deltaTime;
+                transform.position += (transform.forward + rb.linearVelocity) * Time.deltaTime;
 
 
                 if (MoveCount >= MoveTime)
@@ -126,29 +131,42 @@ public class EnemyStatus : MonoBehaviour
     public void ItemDrop()
     {
         int RandomNum = Random.Range(0, 100);
-        if(RandomNum < DropProbability)
+        if (RandomNum < DropProbability)
         {
             Instantiate(DropObject, transform.position, Quaternion.identity);
         }
     }
 
-    public void DespawEnemy()
+    public void DespawCheck()
     {
+
         EnemySpawner parent = GetComponentInParent<EnemySpawner>();
-        if (!parent.EnemyGenerating)
+        if (!parent.EnemyGenerating && !Despaw)
         {
-            DespawCount += Time.deltaTime;
-            if(DespawCount > DespawTime)
+            Despaw = true;
+            StartCoroutine(DespawEnemy());
+        }
+    }
+    public IEnumerator DespawEnemy()
+    {
+        Color Matcolor = mat.color;
+
+        EnemySpawner parent = GetComponentInParent<EnemySpawner>();
+        while (DespawCount <= DespawTime)
             {
-                parent.EnemyNum--;
-                parent.Enemys.Remove(gameObject);
-                Destroy(MyParent);
+                DespawCount += Time.deltaTime;
+                Matcolor.a = 1 - (DespawCount / DespawTime);
+                mat.color = Matcolor;
+                if (DespawCount > DespawTime)
+                {
+                    parent.EnemyNum--;
+                    parent.Enemys.Remove(gameObject);
+                    Destroy(MyParent);
+                }
+                yield return null;
             }
-        }
-        else
-        {
-            DespawCount = 0;
-        }
+        
+        
     }
     public void FallEnemy()
     {
@@ -160,7 +178,18 @@ public class EnemyStatus : MonoBehaviour
             parent.Enemys.Remove(gameObject);
             Destroy(MyParent);
         }
-     
+
+    }
+
+    public void KnockBack(GameObject obj, Rigidbody rb, float KnockBackPow)
+    {
+        if (Big)
+        {
+            KnockBackPow /= 4;
+        }
+        rb.linearVelocity = ((transform.position - (Vector3.up * transform.position.y)) - (obj.transform.position - (Vector3.up * obj.transform.position.y))).normalized * (KnockBackPow - KnockBackResistance);
+
+        Debug.Log(rb.linearVelocity + "ŒÄ‚Î‚ê‚Æ‚é");
     }
 
 }

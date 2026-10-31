@@ -23,7 +23,28 @@ public class Horn : MonoBehaviour
             {
                 Debug.Log("atatteru");
                 PlayerStatus.BeamAttack = false;
-                other.GetComponent<EnemyStatus>().HP -= PlayerSystem.FinalAttackPow() - other.GetComponent<EnemyStatus>().DefenseH;
+                int KnockBackPow = 5;
+                if (PlayerSkill.RollXPush)
+                {
+                    KnockBackPow += 2;
+                }
+                if (PlayerStatus.fastHorn)
+                {
+                    KnockBackPow += 3;
+                }
+                if (PlayerStatus.fastRote)
+                {
+                    KnockBackPow += 3;
+                }
+                other.gameObject.GetComponent<EnemyStatus>().KnockBack(gameObject, other.gameObject.GetComponent<EnemyStatus>().rb, KnockBackPow);
+                if (other.GetComponent<EnemyStatus>().DefenseH < PlayerSystem.FinalAttackPow())
+                {
+                    other.GetComponent<EnemyStatus>().HP -= PlayerSystem.FinalAttackPow() - other.GetComponent<EnemyStatus>().DefenseH;
+                }
+                else
+                {
+                    other.GetComponent<EnemyStatus>().HP -= 1;
+                }
             }
         }
     }

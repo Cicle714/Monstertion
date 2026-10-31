@@ -11,11 +11,11 @@ public class PlayerSystem : MonoBehaviour
         if (PlayerStatus.HornAttack)
         {
             CalcPow += PlayerStatus.HornAttackPow;
-            if (PlayerStatus.faltHorn)
+            if (PlayerStatus.fastHorn)
             {
                 CalcPow *= 2;
             }
-            if (PlayerStatus.faltRote)
+            if (PlayerStatus.fastRote)
             {
                 CalcPow *= 2;
             }

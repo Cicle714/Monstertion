@@ -11,7 +11,8 @@ public class Enemy_01 : EnemyStatus
 
     void Start()
     {
-
+        rb = GetComponent<Rigidbody>();
+        mat = GetComponent<Renderer>().material;
         BigEnemy();
         player = FindObjectOfType<PlayerController>();
     }
@@ -19,13 +20,17 @@ public class Enemy_01 : EnemyStatus
     // Update is called once per frame
     void Update()
     {
-        EnemyMove(player);
-        DespawEnemy();
+        DespawCheck();
         EnemyDeath();
         FallEnemy();
     }
 
-        
+    private void FixedUpdate()
+    {
+
+        EnemyMove(player);
+    }
+
 
     private void OnCollisionStay(Collision collision)
     {

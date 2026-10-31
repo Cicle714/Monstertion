@@ -8672,7 +8672,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3, y: 1.2, z: 3}
+  m_Size: {x: 4.32, y: 1.2, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &2058486186
 MeshRenderer:
@@ -8743,23 +8743,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01b12c88889eb6a4ea836e655423da0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Horn
---- !u!1 &1911216537649153926 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 836527580485804824, guid: 29d79d0ccb24f4d4d9874202707f7a9e, type: 3}
-  m_PrefabInstance: {fileID: 3787536577539247227}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1985538598416255172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1911216537649153926}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70e11600d9edc244b92182d3bec439a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SafetyField
 --- !u!1001 &3787536577539247227
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8815,10 +8798,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 836527580485804824, guid: 29d79d0ccb24f4d4d9874202707f7a9e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1985538598416255172}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29d79d0ccb24f4d4d9874202707f7a9e, type: 3}
 --- !u!1001 &8189983358865523973
 PrefabInstance:

@@ -21,15 +21,15 @@ public class PlayerStatus : MonoBehaviour
 
     public static bool IsGround;
     public static bool MoveRoll;
-    public static bool MoveRollXStop;
-    public static bool MoveRollZRStop;
-    public static bool MoveRollZLStop;
+    public static bool MoveRollXStop = true;
+    public static bool MoveRollZRStop = true;
+    public static bool MoveRollZLStop = true;
 
     public static int PlayerLevel = 1;
     public static int CheckLevel = 1;
     public static int GetEXP = 0;
     public static int NeedEXP = 5;
-    public static int PlayerAttack = 10;
+    public static int PlayerAttack = 5;
     public static int MaxHP = 50;
     public static float HP = 50;
     public static int MaxSP = 100;
@@ -52,8 +52,8 @@ public class PlayerStatus : MonoBehaviour
     public static float fastHornMagPow = 2.0f;
     public static float fastRoteMagPow = 2.0f;
 
-    public static bool faltHorn = false;
-    public static bool faltRote = false;
+    public static bool fastHorn = false;
+    public static bool fastRote = false;
 
     public static float PropellerPow = 0.25f;
 

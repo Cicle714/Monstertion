@@ -30,6 +30,7 @@ public class PlayerSkill : MonoBehaviour
     public static float RollZLCount;
     public static float RollZLTime = 1;
     public static bool FastRollX;
+    public static bool FastRollXStock;
 
     public static bool RollZReverse;
     public static float RollZReverseCount;
@@ -94,6 +95,10 @@ public class PlayerSkill : MonoBehaviour
 
     void HornGrowing()
     {
+        if(PlayerStatus.SP <= 0)
+        {
+          HornGrow = false;
+        }
         if (!PlayerStatus.BeamAttack)
         {
             PlayerStatus.HornAttack = true;
@@ -186,17 +191,20 @@ public class PlayerSkill : MonoBehaviour
         {
             if (RollXPush)
             {
+                
                 if (PlayerStatus.SP >= 2 && !FastRollX)
                 {
+                    FastRollXStock = true;
                     PlayerStatus.SP -= 2;
-                    PlayerStatus.faltRote = true;
+                    FastRollX = true;
+                    PlayerStatus.fastRote = true;
                 }
             }
             else
             {
                 if (PlayerStatus.SP >= 2)
                 {
-                    PlayerStatus.MoveRoll = true;
+                    PlayerStatus.MoveRollXStop = false;
                     PlayerStatus.SP -= 2;
                     PlayerRot = transform.rotation;
                     RollXPush = true;
@@ -204,6 +212,11 @@ public class PlayerSkill : MonoBehaviour
                 }
             }
         }
+        if (context.canceled)
+        {
+            FastRollXStock = false;
+        }
+
     }
     public void RollZRStart(InputAction.CallbackContext context)
     {
@@ -212,7 +225,7 @@ public class PlayerSkill : MonoBehaviour
 
             RollZReverseCount = 0;
             RollZReverse = false;
-                PlayerStatus.MoveRoll = true;
+                PlayerStatus.MoveRollZRStop = false;
                 PlayerRot = transform.rotation;
                 StartCoroutine(RollZR());
             
@@ -250,11 +263,10 @@ public class PlayerSkill : MonoBehaviour
     }
     IEnumerator RollX()
     {
-        PlayerStatus.MoveRollXStop = true;
         while (RollXCount < RollXTime)
         {
             float RollCountSpeed = 0;
-            if (PlayerStatus.faltRote)
+            if (PlayerStatus.fastRote)
                 RollCountSpeed += Time.deltaTime * 4;
             else
                 RollCountSpeed += Time.deltaTime;
@@ -271,17 +283,26 @@ public class PlayerSkill : MonoBehaviour
 
             yield return null;
         }
+        if (PlayerSkill.FastRollXStock && PlayerStatus.SP >= 4)
+        {
+                PlayerStatus.SP -= 4;
+            RollXCount = 0;
+            yield return StartCoroutine(RollX());
+            
+        }
+        else
+        {
 
-        PlayerStatus.MoveRollXStop = false;
-        RollXPush = false;
-        PlayerStatus.faltRote = false;
-        PlayerStatus.MoveRoll = false;
-        RollXCount = 0;
+            PlayerStatus.MoveRollXStop = true;
+            RollXPush = false;
+            FastRollX = false;
+            PlayerStatus.fastRote = false;
+            RollXCount = 0;
+        }
 
     }
     IEnumerator RollZR()
     {
-        PlayerStatus.MoveRollZRStop = true;
         while (PlayerStatus.SkillRoteZ < 90)
         {
 
@@ -295,8 +316,6 @@ public class PlayerSkill : MonoBehaviour
             yield return null;
         }
 
-        PlayerStatus.MoveRollZRStop = false;
-        PlayerStatus.MoveRoll = false;
         RollZReverse = true;
         RollZRCount = 0;
 
@@ -308,6 +327,8 @@ public class PlayerSkill : MonoBehaviour
         {
             if (RollZReverseCount >= RollZReverseTime)
             {
+                PlayerStatus.MoveRollZRStop = true;
+                PlayerStatus.MoveRollZLStop = true;
                 if (PlayerStatus.SkillRoteZ < 0)
                 {
 
@@ -325,6 +346,7 @@ public class PlayerSkill : MonoBehaviour
 
                     if (PlayerStatus.SkillRoteZ < 0)
                     {
+
                         PlayerStatus.SkillRoteZ = 0;
                     }
                 }

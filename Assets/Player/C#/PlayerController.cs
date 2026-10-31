@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
         moveInput = context.ReadValue<Vector2>();
 
         Vector3 direction = new Vector3(moveInput.x, 0f, moveInput.y);
-        if (!PlayerStatus.MoveRoll && PlayerStatus.IsGround)
+        if (PlayerStatus.MoveRollXStop && PlayerStatus.MoveRollZLStop && PlayerStatus.MoveRollZRStop)
             PlayerStatus.PlayerRote = Quaternion.LookRotation(direction).eulerAngles;
 
 
@@ -122,7 +122,7 @@ public class PlayerController : MonoBehaviour
             moveInput *= 2f;
 
         Vector3 direction = new Vector3(moveInput.x, 0f, moveInput.y);
-        if (!PlayerStatus.MoveRoll)
+        if (PlayerStatus.MoveRollXStop && PlayerStatus.MoveRollZLStop && PlayerStatus.MoveRollZRStop)
             PlayerStatus.PlayerRote = Quaternion.LookRotation(direction).eulerAngles;
     }
     public void OnJump(InputAction.CallbackContext context)

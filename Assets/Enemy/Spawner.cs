@@ -35,7 +35,7 @@ public class EnemySpawner : MonoBehaviour
 
     void EnemySpawn()
     {
-        if(Vector3.Distance(transform.position,player.transform.position) < transform.localScale.magnitude * 2)
+        if(Vector3.Distance(transform.position,player.transform.position) < transform.localScale.magnitude * 0.75f)
         {
             EnemyGenerating = true; 
             if (EnemyMaxNum > EnemyNum)

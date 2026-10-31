@@ -442,8 +442,30 @@
                 },
                 {
                     "name": "",
+                    "id": "93ac2950-266d-4f90-83dc-d221bc006eaa",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RollX",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "63cf10e2-74b7-4f89-b9b5-eef4aec9dad4",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RollZR",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3041bcfd-11ca-4ef6-a18a-ff422d2353da",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -574,6 +596,17 @@
                 },
                 {
                     "name": "",
+                    "id": "afbe9c91-126a-452e-917a-67a71028973d",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HornGrow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "d264e31d-86c8-4a77-b6de-7e3db8bbc319",
                     "path": "<Keyboard>/j",
                     "interactions": "",
@@ -585,8 +618,8 @@
                 },
                 {
                     "name": "",
-                    "id": "a84c44ce-ec33-4bcf-97e6-d2166e2d84b3",
-                    "path": "",
+                    "id": "261fec6c-0a36-4c82-9a11-85ab504e18d7",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

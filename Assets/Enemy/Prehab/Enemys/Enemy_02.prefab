@@ -220,7 +220,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: cbe314c5e2b49844baa5415d48b8490b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -279,15 +279,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf00f4bf3c20a994487782f53d7c9d87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_01
+  rb: {fileID: 0}
   HPCanvas: {fileID: 4377450701307550512}
   HPbar: {fileID: 8167526686230899773}
   MyParent: {fileID: 8153214255139313161}
   SpawParent: {fileID: 0}
+  mat: {fileID: 0}
   AttackPow: 13
   AttackSpeed: 2
   AttackSpeedCount: 0
-  Defense: 7
+  DefenseH: 0
+  DefenseB: 0
   MoveSpeed: 2.5
+  KnockBackResistance: 0
   SensingDistance: 10
   MoveStartTime: 2.5
   MoveStartTimeNoise: 1
@@ -302,8 +306,12 @@ MonoBehaviour:
   HP: 40
   EXP: 2
   Big: 0
+  BigProbability: 5
   DropObject: {fileID: 0}
   DropProbability: 0
+  Despaw: 0
+  DespawTime: 1
+  DespawCount: 0
 --- !u!54 &3742054751697708003
 Rigidbody:
   m_ObjectHideFlags: 0
