@@ -37,7 +37,7 @@ public class PlayerStatus : MonoBehaviour
     public static int HornAttackPow = 0;
     public static int BeamAttackPow = 0;
     public static int Defense = 5;
-    public static float MoveSpeed;
+    public static float MoveSpeed = 7;
     public static float JumpPow = 1250;
     public static float FullnessMax = 100;
     public static float Fullness = 100;
@@ -67,13 +67,15 @@ public class PlayerStatus : MonoBehaviour
 
     public static float HitInvincibleCount;
 
+    public static float FullnessBonus;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if (instance == null)
         {
-            instance = new PlayerStatus();
+            instance = this;
         }
         else
         {

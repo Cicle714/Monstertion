@@ -85,7 +85,12 @@ public class PlayerSystem : MonoBehaviour
 
     public static void TimeFullnessDecrease()
     {
-        PlayerStatus.Fullness -= Time.deltaTime / PlayerStatus.FullnessDecreaseNum;
+        if (PlayerStatus.Fullness != 0)
+            PlayerStatus.Fullness -= Time.deltaTime / PlayerStatus.FullnessDecreaseNum;
+        if(PlayerStatus.Fullness < 0)
+        {
+            PlayerStatus.Fullness = 0;
+        }
     }
     public static void SkillFullnessDecrease()
     {
@@ -102,6 +107,7 @@ public class PlayerSystem : MonoBehaviour
 
     public static void PlayerRecovery()
     {
+        if(PlayerStatus.Fullness != 0)
         PlayerStatus.HP += Time.deltaTime * 10;
         if (PlayerStatus.HP > PlayerStatus.MaxHP)
         {
@@ -124,4 +130,40 @@ public class PlayerSystem : MonoBehaviour
             PlayerStatus.rb.linearVelocity = new Vector3(PlayerStatus.rb.linearVelocity.x, -50);
         }
     }
+    public static void Fullness()
+    {
+        if(PlayerStatus.Fullness >= 80)
+        {
+            PlayerStatus.HP += Time.deltaTime * PlayerStatus.MaxHP / 50;
+            if(PlayerStatus.HP >= PlayerStatus.MaxHP)
+            {
+                PlayerStatus.HP = PlayerStatus.MaxHP;
+            }
+            PlayerStatus.FullnessBonus = 1.2f;
+        }
+       else if (PlayerStatus.Fullness >= 30)
+        {
+            PlayerStatus.FullnessBonus = 1f;
+        }else if(PlayerStatus.Fullness > 0)
+        {
+            PlayerStatus.FullnessBonus = 0.8f;
+        }
+        else
+        {
+            PlayerStatus.FullnessBonus = 0.6f;
+            PlayerStatus.HP -= Time.deltaTime * 5;
+        }
+    }
+
+    public static float FinelSpeed()
+    {
+        float speed = 0;
+
+        speed += PlayerStatus.MoveSpeed;
+        speed *= PlayerStatus.FullnessBonus;
+
+
+        return speed;
+    }
+
 }

@@ -48,6 +48,9 @@ public class EnemyStatus : MonoBehaviour
     public float DespawTime = 1;
     public float DespawCount;
 
+    [SerializeField]
+    private GameObject ChildObject;
+
     public void BigEnemy()
     {
         if (Random.Range(0, 100) < BigProbability)
@@ -124,6 +127,7 @@ public class EnemyStatus : MonoBehaviour
                 parent.Enemys.Remove(gameObject);
             }
             PlayerStatus.GetEXP += EXP;
+            ItemDrop();
             Destroy(MyParent);
         }
     }
@@ -157,6 +161,7 @@ public class EnemyStatus : MonoBehaviour
                 DespawCount += Time.deltaTime;
                 Matcolor.a = 1 - (DespawCount / DespawTime);
                 mat.color = Matcolor;
+                ChildObject.GetComponent<Renderer>().material.color = Matcolor;
                 if (DespawCount > DespawTime)
                 {
                     parent.EnemyNum--;

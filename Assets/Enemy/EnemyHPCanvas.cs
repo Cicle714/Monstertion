@@ -19,6 +19,10 @@ public class EnemyStatusCanvas : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (enemy.Despaw)
+        {
+            gameObject.SetActive(false);
+        }
         if (enemy.Big)
         {
             transform.position = enemy.transform.position + Vector3.up * 2;

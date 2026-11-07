@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
 
     private bool KeyMove;
 
-    float speed = 7;
 
     private bool IsPush;
 
@@ -40,13 +39,14 @@ public class PlayerController : MonoBehaviour
         PlayerSystem.CheckEXP();
         PlayerSystem.HitInvincible();
         PlayerSystem.LowestFallSpeed();
+        PlayerSystem.Fullness();
         if (PlayerStatus.RecoilCount > 0)
         {
             PlayerStatus.RecoilCount-= Time.deltaTime;
             return;
         }
 
-        Vector3 move = new Vector3(moveInput.x, PropellerUpPow, moveInput.y) * speed * Time.deltaTime;
+        Vector3 move = new Vector3(moveInput.x, PropellerUpPow, moveInput.y) * PlayerSystem.FinelSpeed() * Time.deltaTime;
         if (Dash)
         {
             move *= PlayerStatus.DashSpeed;
@@ -117,9 +117,6 @@ public class PlayerController : MonoBehaviour
             }
             return;
         }
-
-            if (Dash)
-            moveInput *= 2f;
 
         Vector3 direction = new Vector3(moveInput.x, 0f, moveInput.y);
         if (PlayerStatus.MoveRollXStop && PlayerStatus.MoveRollZLStop && PlayerStatus.MoveRollZRStop)

@@ -30,7 +30,7 @@ public class PlayerSkill : MonoBehaviour
     public static float RollZLCount;
     public static float RollZLTime = 1;
     public static bool FastRollX;
-    public static bool FastRollXStock;
+    public static bool RollXStock;
 
     public static bool RollZReverse;
     public static float RollZReverseCount;
@@ -187,14 +187,15 @@ public class PlayerSkill : MonoBehaviour
 
     public void RollXStart(InputAction.CallbackContext context)
     {
+        Debug.Log("Yooo");
         if (context.started)
         {
+           RollXStock = true;
             if (RollXPush)
             {
                 
                 if (PlayerStatus.SP >= 2 && !FastRollX)
                 {
-                    FastRollXStock = true;
                     PlayerStatus.SP -= 2;
                     FastRollX = true;
                     PlayerStatus.fastRote = true;
@@ -214,7 +215,7 @@ public class PlayerSkill : MonoBehaviour
         }
         if (context.canceled)
         {
-            FastRollXStock = false;
+            RollXStock = false;
         }
 
     }
@@ -283,9 +284,21 @@ public class PlayerSkill : MonoBehaviour
 
             yield return null;
         }
-        if (PlayerSkill.FastRollXStock && PlayerStatus.SP >= 4)
+        if (PlayerSkill.RollXStock && PlayerStatus.SP >= 2)
         {
-                PlayerStatus.SP -= 4;
+            if (FastRollX && PlayerStatus.SP >= 4)
+            {
+                PlayerStatus.SP -= 2;
+            }else if (FastRollX)
+            {
+                PlayerStatus.MoveRollXStop = true;
+                RollXPush = false;
+                FastRollX = false;
+                PlayerStatus.fastRote = false;
+                RollXCount = 0;
+            }
+            PlayerStatus.SP -= 2;
+
             RollXCount = 0;
             yield return StartCoroutine(RollX());
             

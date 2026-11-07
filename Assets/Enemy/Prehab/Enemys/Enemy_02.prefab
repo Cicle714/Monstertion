@@ -312,6 +312,7 @@ MonoBehaviour:
   Despaw: 0
   DespawTime: 1
   DespawCount: 0
+  ChildObject: {fileID: 7762620444475820528}
 --- !u!54 &3742054751697708003
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -406,7 +407,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: cbe314c5e2b49844baa5415d48b8490b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
