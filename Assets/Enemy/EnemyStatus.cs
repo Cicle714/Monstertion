@@ -43,6 +43,7 @@ public class EnemyStatus : MonoBehaviour
 
     public GameObject DropObject;
     public float DropProbability;
+    public int DropMoney;
 
     public bool Despaw;
     public float DespawTime = 1;
@@ -128,6 +129,7 @@ public class EnemyStatus : MonoBehaviour
             }
             PlayerStatus.GetEXP += EXP;
             ItemDrop();
+            MyItem.MyMoney += DropMoney;
             Destroy(MyParent);
         }
     }

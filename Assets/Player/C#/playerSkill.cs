@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using NUnit.Framework;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -32,6 +32,7 @@ public class PlayerSkill : MonoBehaviour
     public static bool FastRollX;
     public static bool RollXStock;
 
+    public static bool RollZRHold;
     public static bool RollZReverse;
     public static float RollZReverseCount;
     public static float RollZReverseTime = 2;
@@ -50,7 +51,9 @@ public class PlayerSkill : MonoBehaviour
     [SerializeField]
     private List<GameObject> BeamObject;
 
-    
+    [SerializeField]
+    private EnemyStatus LookOnEnemy;
+    public static bool LookOn;
 
     private Quaternion PlayerRot;
 
@@ -68,6 +71,7 @@ public class PlayerSkill : MonoBehaviour
         PlayerSystem.SkillFullnessDecrease();
         if (PlayerStatus.RecoilCount > 0)
             return;
+        OnLookOn();
         transform.localRotation = Quaternion.Euler(PlayerStatus.PlayerRote) * Quaternion.Euler(0, 0, PlayerStatus.SkillRoteZ) * Quaternion.Euler(PlayerStatus.SkillRoteX, 0, 0);
         HornGrowing();
 
@@ -95,9 +99,9 @@ public class PlayerSkill : MonoBehaviour
 
     void HornGrowing()
     {
-        if(PlayerStatus.SP <= 0)
+        if (PlayerStatus.SP <= 0)
         {
-          HornGrow = false;
+            HornGrow = false;
         }
         if (!PlayerStatus.BeamAttack)
         {
@@ -155,13 +159,14 @@ public class PlayerSkill : MonoBehaviour
             }
             else if (BeamChargeCount >= 1f && PlayerStatus.SP >= 50)
             {
-                    PlayerStatus.SP -= 50;
-                    PlayerStatus.BeamLevel = 2;
-                    PlayerStatus.RecoilCount = 1f;
-                    PlayerStatus.BeamAttack = true;
-                    Instantiate(BeamObject[2], MyHorn2.transform.position, transform.rotation * Quaternion.identity);
-                
-            }else if(BeamChargeCount >= 0.5f && PlayerStatus.SP >= 25)
+                PlayerStatus.SP -= 50;
+                PlayerStatus.BeamLevel = 2;
+                PlayerStatus.RecoilCount = 1f;
+                PlayerStatus.BeamAttack = true;
+                Instantiate(BeamObject[2], MyHorn2.transform.position, transform.rotation * Quaternion.identity);
+
+            }
+            else if (BeamChargeCount >= 0.5f && PlayerStatus.SP >= 25)
             {
 
                 PlayerStatus.SP -= 25;
@@ -170,7 +175,7 @@ public class PlayerSkill : MonoBehaviour
                 PlayerStatus.BeamAttack = true;
                 Instantiate(BeamObject[1], MyHorn2.transform.position, transform.rotation * Quaternion.identity);
             }
-            else if(BeamChargeCount >= 0 && PlayerStatus.SP >= 10)
+            else if (BeamChargeCount >= 0 && PlayerStatus.SP >= 10)
             {
                 PlayerStatus.SP -= 10;
                 PlayerStatus.BeamLevel = 0;
@@ -190,10 +195,10 @@ public class PlayerSkill : MonoBehaviour
         Debug.Log("Yooo");
         if (context.started)
         {
-           RollXStock = true;
+            RollXStock = true;
             if (RollXPush)
             {
-                
+
                 if (PlayerStatus.SP >= 2 && !FastRollX)
                 {
                     PlayerStatus.SP -= 2;
@@ -223,14 +228,17 @@ public class PlayerSkill : MonoBehaviour
     {
         if (context.started)
         {
-
-            RollZReverseCount = 0;
+            RollZRHold = true;
             RollZReverse = false;
-                PlayerStatus.MoveRollZRStop = false;
-                PlayerRot = transform.rotation;
-                StartCoroutine(RollZR());
-            
+            PlayerStatus.MoveRollZRStop = false;
+            PlayerRot = transform.rotation;
+            StartCoroutine(RollZR());
 
+
+        }
+        if (context.canceled)
+        {
+            RollZRHold = false;
         }
     }
     public static IEnumerator HornPropeller()
@@ -289,7 +297,8 @@ public class PlayerSkill : MonoBehaviour
             if (FastRollX && PlayerStatus.SP >= 4)
             {
                 PlayerStatus.SP -= 2;
-            }else if (FastRollX)
+            }
+            else if (FastRollX)
             {
                 PlayerStatus.MoveRollXStop = true;
                 RollXPush = false;
@@ -301,7 +310,7 @@ public class PlayerSkill : MonoBehaviour
 
             RollXCount = 0;
             yield return StartCoroutine(RollX());
-            
+
         }
         else
         {
@@ -338,8 +347,11 @@ public class PlayerSkill : MonoBehaviour
     {
         if (RollZReverse)
         {
-            if (RollZReverseCount >= RollZReverseTime)
+            Debug.Log("RRRR"+ RollZRHold);
+            Debug.Log(RollZReverseCount >= RollZReverseTime);
+            if (RollZReverseCount >= RollZReverseTime && !RollZRHold)
             {
+
                 PlayerStatus.MoveRollZRStop = true;
                 PlayerStatus.MoveRollZLStop = true;
                 if (PlayerStatus.SkillRoteZ < 0)
@@ -378,6 +390,50 @@ public class PlayerSkill : MonoBehaviour
 
 
     }
+    public void LookOnStart(InputAction.CallbackContext context)
+    {
+        if (context.started) {
+            if (!LookOn)
+            {
+                float MinDistance = 10;
+                EnemyStatus[] enemys = FindObjectsOfType<EnemyStatus>();
+                for (int i = 0; i < enemys.Length; i++)
+                {
+                    float DistanceNum = Vector3.Distance(transform.position + transform.forward, enemys[i].transform.position);
+                    if (DistanceNum <= MinDistance)
+                    {
+                        MinDistance = DistanceNum;
+                        LookOnEnemy = enemys[i];
+                        LookOn = true;
+                    }
+                }
+                if(LookOnEnemy == null)
+                {
+                    LookOn = false;
+                }
+            }
+            else
+            {
+                LookOn = false;
+            }
+        }
+    }
 
+    private void OnLookOn()
+    {
+        if (LookOn)
+        {
+            if(LookOnEnemy == null)
+            {
+                LookOn = false;
+                return;
+            }
+            PlayerStatus.PlayerRote = Quaternion.LookRotation(new Vector3(LookOnEnemy.transform.position.x, transform.position.y, LookOnEnemy.transform.position.z) - transform.position).eulerAngles;
+        }
+        else
+        {
+            LookOnEnemy = null;
+        }
+    }
 
 }

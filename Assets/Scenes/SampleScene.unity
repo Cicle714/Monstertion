@@ -5962,6 +5962,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 41a57ec9-a7f0-47ed-be43-c5e04fbadf12
     m_ActionName: 'DebugKey/LevelUp[/Keyboard/b]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 112145889}
+        m_TargetAssemblyTypeName: PlayerSkill, Assembly-CSharp
+        m_MethodName: LookOnStart
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4b4c709f-cd70-4e28-91e4-8ead28f102f1
+    m_ActionName: 'Player/LookOn[/Keyboard/r,/XInputControllerWindows/leftTrigger,/XInputControllerWindows1/leftTrigger,/XInputControllerWindows2/leftTrigger,/XInputControllerWindows3/leftTrigger]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -6014,6 +6030,7 @@ MonoBehaviour:
   - {fileID: 5848694933661941379, guid: fd16368930427644699007a9e7c57212, type: 3}
   - {fileID: 5848694933661941379, guid: 19631318032e98546aee8ef968a02e73, type: 3}
   - {fileID: 5848694933661941379, guid: 9bf87647f0e0264489bf0326f57093d3, type: 3}
+  LookOnEnemy: {fileID: 0}
 --- !u!114 &112145890
 MonoBehaviour:
   m_ObjectHideFlags: 0
