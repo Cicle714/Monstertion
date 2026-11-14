@@ -11,8 +11,12 @@ public class EnemyStatusCanvas : MonoBehaviour
     Text LevelText;
     [SerializeField]
     Text HPText;
+
+    Camera mainCamera;
     void Start()
     {
+        mainCamera = Camera.main;
+
         gameObject.SetActive(true);
     }
 
@@ -36,5 +40,7 @@ public class EnemyStatusCanvas : MonoBehaviour
         }else
             LevelText.text = "Lv" + enemy.Level;
         HPText.text = "HP:"+  enemy.HP +"/"+ enemy.MaxHP;
+
+        transform.rotation = mainCamera.transform.rotation;
     }
 }

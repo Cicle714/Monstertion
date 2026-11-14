@@ -51,11 +51,11 @@ public class PlayerController : MonoBehaviour
         {
             move *= PlayerStatus.DashSpeed;
         }
-        var move2 = transform.position + move;
+        var move2 = transform.position + CameraMove.CameraDirectionY * move;
        
         transform.position = move2;
 
-        Vector3 direction = new Vector3(moveInput.x, 0f, moveInput.y);
+        Vector3 direction = CameraMove.CameraDirectionY * new Vector3(moveInput.x, 0f, moveInput.y);
         if (PlayerStatus.MoveRollXStop && PlayerStatus.MoveRollZLStop && PlayerStatus.MoveRollZRStop && !PlayerSkill.LookOn && direction.magnitude != 0)
             PlayerStatus.PlayerRote = Quaternion.LookRotation(direction).eulerAngles;
 

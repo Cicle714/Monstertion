@@ -17,12 +17,15 @@ public class CameraMove : MonoBehaviour
     private Vector3 InputPow;
 
     private Vector2 CameraInput;
-
+    public static Quaternion CameraDirectionY;
+    public static float CameraDirectionX;
 
 
     void Start()
     {
         player = FindObjectOfType<PlayerController>();
+        CameraDirectionY = CenterObject.transform.rotation;
+        CameraDirectionX = 0;
     }
 
     // Update is called once per frame
@@ -30,8 +33,16 @@ public class CameraMove : MonoBehaviour
     {
         CenterObject.transform.position = player.transform.position;
         transform.localPosition = CameraPos;
+        CameraDirectionX += CameraInput.x;
+        if(CameraDirectionX > 15)
+        {
+            CameraDirectionX = 15;
+        }else if(CameraDirectionX < -25) {
+            CameraDirectionX = -25;
+        }
         transform.localRotation = Quaternion.Euler(CameraRot);
-        CenterObject.transform.rotation = Quaternion.Euler(CameraInput * InputPow);
+        CameraDirectionY *= Quaternion.Euler(new Vector2(0, CameraInput.y * InputPow.y));
+        CenterObject.transform.rotation = CameraDirectionY * Quaternion.Euler(Vector3.right * CameraDirectionX);
     }
 
     public void CameraRote(InputAction.CallbackContext context)
@@ -45,7 +56,8 @@ public class CameraMove : MonoBehaviour
         CameraInput = context.ReadValue<Vector2>();
         CameraInput = new Vector2(-CameraInput.y, CameraInput.x);
 
-        
+
+
 
     }
 }
