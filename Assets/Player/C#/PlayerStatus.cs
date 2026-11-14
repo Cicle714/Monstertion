@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStatus : MonoBehaviour
@@ -34,9 +35,9 @@ public class PlayerStatus : MonoBehaviour
     public static float HP = 50;
     public static int MaxSP = 100;
     public static float SP = 100;
+    public static int Defense = 5;
     public static int HornAttackPow = 0;
     public static int BeamAttackPow = 0;
-    public static int Defense = 5;
     public static float MoveSpeed = 7;
     public static float JumpPow = 1250;
     public static float FullnessMax = 100;
@@ -69,6 +70,16 @@ public class PlayerStatus : MonoBehaviour
 
     public static float FullnessBonus;
 
+    public static int HoldSkillPoint = 2;
+    public static int[] UseSkillPoint = new int[6];
+
+    public static int FinalMaxHP = 50;
+    public static int FinalMaxSP = 100;
+    public static int FinalHornAttackPow = 0;
+    public static int FinalBeamAttackPow = 0;
+    public static int FinalDefense = 5;
+    public static float FinalMoveSpeed = 7;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -91,7 +102,23 @@ public class PlayerStatus : MonoBehaviour
 
     }
 
-    
-    
+    public static void  FinalStatus()
+    {
+        FinalMaxHP = MaxHP + UseSkillPoint[0] * 5;
+        FinalMaxSP = MaxSP + UseSkillPoint[1] * 5;
+        FinalHornAttackPow = HornAttackPow + UseSkillPoint[2];
+        FinalBeamAttackPow = BeamAttackPow + UseSkillPoint[3];
+        FinalDefense = Defense + UseSkillPoint[4];
+        FinalMoveSpeed = MoveSpeed + UseSkillPoint[4] * 0.5f;
+    }
+
+    void SkillPointReset()
+    {
+        HoldSkillPoint = PlayerLevel * 2;
+        for (int i = 0; i < UseSkillPoint.Length; i++)
+        {
+            UseSkillPoint[i] = 0;
+        }
+    }
 
 }

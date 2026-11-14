@@ -55,6 +55,10 @@ public class PlayerController : MonoBehaviour
        
         transform.position = move2;
 
+        Vector3 direction = new Vector3(moveInput.x, 0f, moveInput.y);
+        if (PlayerStatus.MoveRollXStop && PlayerStatus.MoveRollZLStop && PlayerStatus.MoveRollZRStop && !PlayerSkill.LookOn && direction.magnitude != 0)
+            PlayerStatus.PlayerRote = Quaternion.LookRotation(direction).eulerAngles;
+
         if (PlayerStatus.rb.useGravity && PropellerUpPow > 0)
         {
             PropellerUpPow -= Time.deltaTime * 20;
@@ -84,9 +88,6 @@ public class PlayerController : MonoBehaviour
 
         moveInput = context.ReadValue<Vector2>();
 
-        Vector3 direction = new Vector3(moveInput.x, 0f, moveInput.y);
-        if (PlayerStatus.MoveRollXStop && PlayerStatus.MoveRollZLStop && PlayerStatus.MoveRollZRStop && !PlayerSkill.LookOn)
-            PlayerStatus.PlayerRote = Quaternion.LookRotation(direction).eulerAngles;
 
 
     }
@@ -110,7 +111,7 @@ public class PlayerController : MonoBehaviour
 
         if (context.canceled)
         {
-            if(context.ReadValue<Vector2>().magnitude <= 0.1f)
+            if (context.ReadValue<Vector2>().magnitude <= 0.1f)
             {
                 MoveStart = false;
                 moveInput = Vector2.zero;
@@ -118,9 +119,6 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        Vector3 direction = new Vector3(moveInput.x, 0f, moveInput.y);
-        if (PlayerStatus.MoveRollXStop && PlayerStatus.MoveRollZLStop && PlayerStatus.MoveRollZRStop)
-            PlayerStatus.PlayerRote = Quaternion.LookRotation(direction).eulerAngles;
     }
     public void OnJump(InputAction.CallbackContext context)
     {
@@ -172,10 +170,10 @@ public class PlayerController : MonoBehaviour
             PlayerStatus.SPRecoveryDelayCount += Time.deltaTime;
             if (PlayerStatus.SPRecoveryDelayCount >= PlayerStatus.SPRecoveryDelayTime)
             {
-                PlayerStatus.SP += (PlayerStatus.MaxSP / 10) * Time.deltaTime;
+                PlayerStatus.SP += (PlayerStatus.FinalMaxSP / 10) * Time.deltaTime;
                 if (moveInput.magnitude == 0)
                 {
-                    PlayerStatus.SP += (PlayerStatus.MaxSP / 10) * Time.deltaTime * 2;
+                    PlayerStatus.SP += (PlayerStatus.FinalMaxSP / 10) * Time.deltaTime * 2;
                 }
             }
         }
@@ -183,9 +181,9 @@ public class PlayerController : MonoBehaviour
         {
             PlayerStatus.SPRecoveryDelayCount = 0;
         }
-        if (PlayerStatus.SP > PlayerStatus.MaxSP)
+        if (PlayerStatus.SP > PlayerStatus.FinalMaxSP)
         {
-            PlayerStatus.SP = PlayerStatus.MaxSP;
+            PlayerStatus.SP = PlayerStatus.FinalMaxSP;
         }
     }
 

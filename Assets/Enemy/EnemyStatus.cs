@@ -129,7 +129,7 @@ public class EnemyStatus : MonoBehaviour
             }
             PlayerStatus.GetEXP += EXP;
             ItemDrop();
-            MyItem.MyMoney += DropMoney;
+            MyItem.Money += DropMoney;
             Destroy(MyParent);
         }
     }

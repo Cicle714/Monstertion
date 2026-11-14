@@ -1,9 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MyItem : MonoBehaviour
 {
 
-    public static int MyMoney;
+    public static int Money;
+    public static List<int> HoldItemNumber = new List<int>();
 
     void Start()
     {

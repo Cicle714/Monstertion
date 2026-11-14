@@ -79,9 +79,9 @@ public class Item : MonoBehaviour
             {
                 case ItemElement.Recovery:
                     PlayerStatus.HP += ItemPow;
-                    if (PlayerStatus.HP > PlayerStatus.MaxHP)
+                    if (PlayerStatus.HP > PlayerStatus.FinalMaxHP)
                     {
-                        PlayerStatus.HP = PlayerStatus.MaxHP;
+                        PlayerStatus.HP = PlayerStatus.FinalMaxHP;
                     }
                     break;
                 case ItemElement.FullnessRecovery:

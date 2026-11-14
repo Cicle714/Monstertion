@@ -33,8 +33,8 @@ public class GameManager : MonoBehaviour
 
     private void PlayerRestart()
     {
-        PlayerStatus.HP = PlayerStatus.MaxHP;
-        PlayerStatus.SP = PlayerStatus.MaxSP;
+        PlayerStatus.HP = PlayerStatus.FinalMaxHP;
+        PlayerStatus.SP = PlayerStatus.FinalMaxSP;
         PlayerStatus.Fullness = PlayerStatus.FullnessMax;
         player.transform.position = PlayerStatus.RespawnPos;
         GameOver = false;

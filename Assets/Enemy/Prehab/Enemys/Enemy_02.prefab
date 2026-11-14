@@ -288,8 +288,8 @@ MonoBehaviour:
   AttackPow: 13
   AttackSpeed: 2
   AttackSpeedCount: 0
-  DefenseH: 0
-  DefenseB: 0
+  DefenseH: 2
+  DefenseB: 2
   MoveSpeed: 2.5
   KnockBackResistance: 0
   SensingDistance: 10
@@ -309,6 +309,7 @@ MonoBehaviour:
   BigProbability: 5
   DropObject: {fileID: 0}
   DropProbability: 0
+  DropMoney: 0
   Despaw: 0
   DespawTime: 1
   DespawCount: 0

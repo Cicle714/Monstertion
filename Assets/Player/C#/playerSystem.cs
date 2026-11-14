@@ -10,7 +10,7 @@ public class PlayerSystem : MonoBehaviour
 
         if (PlayerStatus.HornAttack)
         {
-            CalcPow += PlayerStatus.HornAttackPow;
+            CalcPow += PlayerStatus.FinalHornAttackPow;
             if (PlayerStatus.fastHorn)
             {
                 CalcPow *= 2;
@@ -22,7 +22,7 @@ public class PlayerSystem : MonoBehaviour
         }
         if (PlayerStatus.BeamAttack)
         {
-            CalcPow += PlayerStatus.BeamAttackPow;
+            CalcPow += PlayerStatus.FinalBeamAttackPow;
             CalcPow *= BeamLevelMag();
         }
 
@@ -81,6 +81,8 @@ public class PlayerSystem : MonoBehaviour
         PlayerStatus.BeamAttackPow += 2;
         PlayerStatus.HornAttackPow += 2;
         PlayerStatus.Defense += 1;
+        PlayerStatus.HoldSkillPoint += 2;
+        PlayerStatus.FinalStatus();
     }
 
     public static void TimeFullnessDecrease()
@@ -109,9 +111,9 @@ public class PlayerSystem : MonoBehaviour
     {
         if(PlayerStatus.Fullness != 0)
         PlayerStatus.HP += Time.deltaTime * 10;
-        if (PlayerStatus.HP > PlayerStatus.MaxHP)
+        if (PlayerStatus.HP > PlayerStatus.FinalMaxHP)
         {
-            PlayerStatus.HP = PlayerStatus.MaxHP;
+            PlayerStatus.HP = PlayerStatus.FinalMaxHP;
         }
     }
 
@@ -134,10 +136,10 @@ public class PlayerSystem : MonoBehaviour
     {
         if(PlayerStatus.Fullness >= 80)
         {
-            PlayerStatus.HP += Time.deltaTime * PlayerStatus.MaxHP / 50;
-            if(PlayerStatus.HP >= PlayerStatus.MaxHP)
+            PlayerStatus.HP += Time.deltaTime * PlayerStatus.FinalMaxHP / 50;
+            if(PlayerStatus.HP >= PlayerStatus.FinalMaxHP)
             {
-                PlayerStatus.HP = PlayerStatus.MaxHP;
+                PlayerStatus.HP = PlayerStatus.FinalMaxHP;
             }
             PlayerStatus.FullnessBonus = 1.2f;
         }
@@ -159,7 +161,7 @@ public class PlayerSystem : MonoBehaviour
     {
         float speed = 0;
 
-        speed += PlayerStatus.MoveSpeed;
+        speed += PlayerStatus.FinalMoveSpeed;
         speed *= PlayerStatus.FullnessBonus;
 
 

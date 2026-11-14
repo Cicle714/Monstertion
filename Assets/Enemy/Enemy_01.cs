@@ -36,9 +36,9 @@ public class Enemy_01 : EnemyStatus
     {
         if (collision.gameObject.GetComponent<PlayerController>() && PlayerStatus.HitInvincibleCount <= 0)
         {
-            if (AttackPow - PlayerStatus.Defense >= 1)
+            if (AttackPow - PlayerStatus.FinalDefense >= 1)
             {
-                PlayerStatus.HP -= AttackPow - PlayerStatus.Defense;
+                PlayerStatus.HP -= AttackPow - PlayerStatus.FinalDefense;
             }
             else
             {
